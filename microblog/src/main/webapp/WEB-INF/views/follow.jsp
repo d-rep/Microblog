@@ -1,0 +1,14 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<html>
+    <head>
+        <title>Microblog: Follow</title>
+    </head>
+    <body>
+        <h1>Follow</h1>
+        <form method="POST" action="doFollow">
+        	Username to Follow: <input type="username" name="username"/><br/>
+        	<input type="submit" value="Follow"/>
+        </form>
+    </body>
+</html>
