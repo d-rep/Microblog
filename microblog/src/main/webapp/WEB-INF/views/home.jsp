@@ -5,6 +5,6 @@
         <title>Microblog</title>
     </head>
     <body>
-        <h1>Microblog</h1>
+        <h1>Microblog: <c:out value="${username}"/></h1>
     </body>
 </html>

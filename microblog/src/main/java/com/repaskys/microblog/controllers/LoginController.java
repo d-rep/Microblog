@@ -18,6 +18,7 @@ package com.repaskys.microblog.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,9 +40,10 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "/verifyLogin", method = RequestMethod.POST)
-	public String verifyLogin(@RequestParam("username") String username, @RequestParam("password") String password) {
+	public String verifyLogin(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
 		logger.trace("executing inside LoginController verifyLogin()");
 		logger.debug("username: " + username + " password: " + password);
+		model.addAttribute("username", username);
 		return "home";
 	}
 }
