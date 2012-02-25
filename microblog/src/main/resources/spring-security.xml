@@ -6,6 +6,12 @@
                     http://www.springframework.org/schema/security 
                     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<beans:bean id="userDetailsManager" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<beans:bean id="encoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
 	<http pattern="/static/**" security="none" />
 
 	<http use-expressions="true">
@@ -22,6 +28,7 @@
   
     <authentication-manager>
         <authentication-provider>
+    		<password-encoder ref="encoder" />
             <jdbc-user-service data-source-ref="dataSource"/>
         </authentication-provider>
     </authentication-manager>
