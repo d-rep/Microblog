@@ -7,6 +7,7 @@
 	<body>
 		default landing page<br/>
 		<a href="posts.jsp">Posts</a><br/>
+		<a href="register">Register New User</a><br/>
 		<a href="follow">Follow a User</a><br/>
 	</body>
 </html>
