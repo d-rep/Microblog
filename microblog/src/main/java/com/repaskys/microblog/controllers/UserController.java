@@ -16,8 +16,17 @@
 
 package com.repaskys.microblog.controllers;
 
+
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +37,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
+	@Autowired
+	UserDetailsManager userDetailsManager;
+	
+	// These are the same for every user we create
+	private static final boolean enabled = true;
+	private static final boolean accountNonExpired = true;
+	private static final boolean credentialsNonExpired = true;
+	private static final boolean accountNonLocked = true;
+	private static final List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("user"));
+	
+	private static final UserDetails initializeUser(String username, String password) {
+		return new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		logger.trace("executing inside UserController register()");
@@ -35,9 +58,10 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
-	public String createUser(@RequestParam("username") String username, String password, Model model) {
+	public String createUser(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
 		logger.trace("executing inside UserController createUser()");
-
+		// FIXME trap exceptions
+		userDetailsManager.createUser(initializeUser(username, password));
 		model.addAttribute("username", username);
 		return "user_created";
 	}

@@ -19,4 +19,8 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+	<bean id="userDetailsManager" class="org.springframework.security.provisioning.JdbcUserDetailsManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
 </beans>
