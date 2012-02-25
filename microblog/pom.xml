@@ -72,6 +72,13 @@
 			<version>${spring.version}</version>
 			<scope>runtime</scope>
 		</dependency>
+		<!-- Database -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.18</version>
+			<scope>runtime</scope>
+		</dependency>
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

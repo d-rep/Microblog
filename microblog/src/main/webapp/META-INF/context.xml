@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+	<!-- These are the settings for Tomcat -->
+	<Resource 
+		name="jdbc/microblog"
+		auth="Container"
+		type="javax.sql.DataSource"
+		username="drew"
+		password="deskpop"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/microblog"
+		maxActive="8"
+		maxIdle="4"
+	/>
+
+</Context>

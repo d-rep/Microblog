@@ -15,14 +15,12 @@
 	    <intercept-url pattern="/doFollow" access="isAuthenticated()" />
 	    <intercept-url pattern="/**" access="denyAll" />
 	    <form-login />
+	    <logout />
 	</http>
-
+  
     <authentication-manager>
         <authentication-provider>
-            <user-service>
-                <user name="drew" password="drew" authorities="user" />
-                <user name="heather" password="heather" authorities="user" />
-            </user-service>
+            <jdbc-user-service data-source-ref="dataSource"/>
         </authentication-provider>
     </authentication-manager>
     

@@ -10,6 +10,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
         	/WEB-INF/appServlet-servlet.xml,
+        	classpath:spring-dataSource.xml,
             classpath:spring-security.xml
         </param-value>
     </context-param>
@@ -38,6 +39,12 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<resource-ref>
+		<res-ref-name>jdbc/microblog</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
