@@ -6,6 +6,8 @@
                     http://www.springframework.org/schema/security 
                     http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
+	<http pattern="/static/**" security="none" />
+
 	<http use-expressions="true">
 	    <intercept-url pattern="/index.jsp" access="permitAll" />
 	    <intercept-url pattern="/posts.jsp" access="isAuthenticated()" />
