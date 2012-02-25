@@ -33,6 +33,6 @@ public class LoginController {
 	@RequestMapping(value = "/")
 	public String loginChallenge() {
 		logger.trace("executing inside LoginController loginChallenge()");
-		return "WEB-INF/views/login.jsp";
+		return "login";
 	}
 }
