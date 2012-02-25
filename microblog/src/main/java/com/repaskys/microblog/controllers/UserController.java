@@ -71,17 +71,25 @@ public class UserController {
 		logger.trace("executing inside UserController createUser()");
 		
 		String view = "error";
-		try {
-			userDetailsManager.createUser(initializeUser(username, plainTextPassword));
-			view = "user_created";
-		} catch(DataIntegrityViolationException ex) {
-			logger.error("DataIntegrityViolationException when saving user " + username + ".", ex);
-			model.addAttribute("errorMessage", "Could not register user \"" + username + "\".  The user may already exist.");
-		} catch(RuntimeException ex) {
-			logger.error("RuntimeException when saving user " + username + ".", ex);
-			model.addAttribute("errorMessage", "Could not register user \"" + username + "\".  An unexpected problem occurred when trying to save the data.");			
+		
+		if(userDetailsManager.userExists(username)) {
+			view = "invalid";
+			model.addAttribute("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
+		} else {
+		
+			try {
+				userDetailsManager.createUser(initializeUser(username, plainTextPassword));
+				view = "user_created";
+				model.addAttribute("username", username);
+			} catch(DataIntegrityViolationException ex) {
+				logger.error("DataIntegrityViolationException when saving user " + username + ".", ex);
+				model.addAttribute("errorMessage", "Could not register user \"" + username + "\".  The user may already exist.");
+			} catch(RuntimeException ex) {
+				logger.error("RuntimeException when saving user " + username + ".", ex);
+				model.addAttribute("errorMessage", "Could not register user \"" + username + "\".  An unexpected problem occurred when trying to save the data.");			
+			}
 		}
-		model.addAttribute("username", username);
+		
 		return view;
 	}
 }

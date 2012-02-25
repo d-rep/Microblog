@@ -16,6 +16,7 @@
 
 package com.repaskys.microblog.controllers;
 
+import org.h2.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -38,10 +39,19 @@ public class FollowController {
 	public String doFollow(@RequestParam("username") String usernameToFollow, Model model) {
 		logger.trace("executing inside FollowController doFollow()");
 		
-		// TODO get my username
-		String myUsername = "";
-		logger.debug("myUsername: " + myUsername + " usernameToFollow: " + usernameToFollow);
-		model.addAttribute("usernameToFollow", usernameToFollow);
-		return "followed";
+		String view = "invalid";
+		if(StringUtils.isNullOrEmpty(usernameToFollow)) {
+			model.addAttribute("errorMessage", "Please specify a username to follow");
+		} else {
+			
+			// TODO verify that user exists
+			
+			// TODO get my username
+			String myUsername = "";
+			logger.debug("myUsername: " + myUsername + " usernameToFollow: " + usernameToFollow);
+			model.addAttribute("usernameToFollow", usernameToFollow);
+			view = "followed";
+		}
+		return view;
 	}
 }
