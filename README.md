@@ -12,7 +12,7 @@ This webapp requires a database, so setup one and add the following JNDI entry t
 
 Add your database settings like username & password to this file: `src/main/webapp/META-INF/context.xml`
 
-This uses Spring Security, and the schema can be setup using the following DDL (this is the MySQL dialect):
+This uses [Spring Security], and the schema can be setup using the following DDL (this is the MySQL dialect):
 
     create table users (
         username varchar(50) not null primary key,
@@ -27,7 +27,20 @@ This uses Spring Security, and the schema can be setup using the following DDL (
         unique index authorities_idx_1 (username, authority)
     ) engine = InnoDb;
 
+Building
+--------
+First, download the latest and greatest source code:
+
+    git clone git://github.com/d-rep/Microblog.git
+
+Build and run the code with the following commands:
+
+    cd Microblog/microblog
+    mvn clean package
+    mvn tomcat6:run
+
 [Drew Repasky]: http://twitter.com/drewrepasky
 [Apache License, Version 2.0]: http://www.apache.org/licenses/LICENSE-2.0.html
 [SpringSource Tool Suite]: http://www.springsource.com/downloads/sts
+[Spring Security]: http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity.html
 

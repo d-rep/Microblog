@@ -19,15 +19,21 @@ package com.repaskys.microblog.controllers;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.repaskys.microblog.services.UserService;
+
 @Controller
 public class FollowController {
 	private static final Logger logger = LoggerFactory.getLogger(FollowController.class);
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
 	public String follow() {
@@ -43,13 +49,16 @@ public class FollowController {
 			model.addAttribute("errorMessage", "Please specify a username to follow");
 		} else {
 			
-			// TODO verify that user exists
-			
-			// TODO get my username
-			String myUsername = "";
-			logger.debug("myUsername: " + myUsername + " usernameToFollow: " + usernameToFollow);
-			model.addAttribute("usernameToFollow", usernameToFollow);
-			view = "followed";
+			if(userService.userExists(usernameToFollow)) {
+				// TODO get my username
+				String myUsername = "";
+				logger.debug("myUsername: " + myUsername + " usernameToFollow: " + usernameToFollow);
+				model.addAttribute("usernameToFollow", usernameToFollow);
+				view = "followed";
+			} else {
+				model.addAttribute("errorMessage", "The user you are trying to follow (\"" + usernameToFollow + "\") does not exist.");
+				view = "invalid";
+			}
 		}
 		return view;
 	}
