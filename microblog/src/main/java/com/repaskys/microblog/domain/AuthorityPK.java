@@ -19,10 +19,9 @@ package com.repaskys.microblog.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -30,48 +29,35 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * This class is used to save a user's data. I would have chose the name "User"
- * but didn't to avoid confusion because that class name is used in Spring
- * Security.
- * 
+ * This class is used as a composite primary key for the BlogAuthority entity.
+ *  
  * @author Drew Repasky
  */
-@Entity
-@Table(name="users", uniqueConstraints=@UniqueConstraint(columnNames="username"))
-public class BlogUser implements Serializable {
-	private static final long serialVersionUID = 7342832593953711366L;
+@Embeddable
+public class AuthorityPK implements Serializable {
+	private static final long serialVersionUID = -2087144042691277032L;
 
-	@Id
-	private String username;
-	
+	@ManyToOne
+	@JoinColumn(name="username")
+	private BlogUser blogUser;
+
 	@Column(nullable = false)
-	private String password;
-	
-	@Column(nullable = false)
-	private Boolean enabled;
-	
-	public String getUsername() {
-		return username;
+	private String authority;
+
+	public BlogUser getBlogUser() {
+		return blogUser;
+	}
+
+	public void setBlogUser(BlogUser blogUser) {
+		this.blogUser = blogUser;
 	}
 	
-	public void setUsername(String username) {
-		this.username = username;
+	public String getAuthority() {
+		return authority;
 	}
 	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public Boolean getEnabled() {
-		return enabled;
-	}
-	
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
 	
 	@Override
@@ -89,5 +75,4 @@ public class BlogUser implements Serializable {
 		return ToStringBuilder.reflectionToString(this,
 				ToStringStyle.MULTI_LINE_STYLE);
 	}
-	
 }

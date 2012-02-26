@@ -20,30 +20,43 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 @Entity
 @Table(name="authorities")
-public class BlogAuthorities implements Serializable {
+public class BlogAuthority implements Serializable {
 
 	private static final long serialVersionUID = 3156968893620763630L;
 	
-	// TODO Should have a composite primary key (username + authority) because each user can have multiple authorities. 
 	@Id
-	@ManyToOne
-	@JoinColumn(name="username")
-	private BlogUser blogUser;
+	AuthorityPK authority;
 
-	private String authority;
-
-	public String getAuthority() {
+	public AuthorityPK getAuthority() {
 		return authority;
 	}
-	
-	public void setAuthority(String authority) {
+
+	public void setAuthority(AuthorityPK authority) {
 		this.authority = authority;
 	}
+	
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.MULTI_LINE_STYLE);
+	}
 }
