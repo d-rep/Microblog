@@ -4,6 +4,7 @@
     <head>
     	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
         <title>Microblog: Register</title>
+        <link rel="stylesheet" type="text/css" href="static/styles.css"></link>
     </head>
     <body>
         <h1>Register New User</h1>
