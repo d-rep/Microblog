@@ -18,10 +18,7 @@ package com.repaskys.microblog.domain;
 
 import java.io.Serializable;
 
-import static javax.persistence.GenerationType.AUTO;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -37,24 +34,13 @@ import javax.persistence.UniqueConstraint;
 @Table(name="users", uniqueConstraints=@UniqueConstraint(columnNames="username"))
 public class BlogUser implements Serializable {
 	private static final long serialVersionUID = 7342832593953711366L;
-	
-	@Id
-	@GeneratedValue(strategy = AUTO)
-	private Long id;
 
+	@Id
 	private String username;
 	
 	private String password;
 	
 	private Boolean enabled;
-	
-	public Long getId() {
-		return id;
-	}
-	
-	public void setId(Long id) {
-		this.id = id;
-	}
 	
 	public String getUsername() {
 		return username;
