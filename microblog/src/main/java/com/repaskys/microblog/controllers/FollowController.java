@@ -53,9 +53,15 @@ public class FollowController {
 			
 			if(userService.userExists(usernameToFollow)) {
 				String myUsername = request.getUserPrincipal().getName();
-				model.addAttribute("myUsername", myUsername);
-				model.addAttribute("usernameToFollow", usernameToFollow);
-				view = "followed";
+				
+				if(myUsername.equalsIgnoreCase(usernameToFollow)) {
+					model.addAttribute("errorMessage", "You cannot follow yourself.");
+					view = "invalid";
+				} else {
+					model.addAttribute("myUsername", myUsername);
+					model.addAttribute("usernameToFollow", usernameToFollow);
+					view = "followed";
+				}
 			} else {
 				model.addAttribute("errorMessage", "The user you are trying to follow (\"" + usernameToFollow + "\") does not exist.");
 				view = "invalid";
