@@ -17,6 +17,8 @@
 package com.repaskys.microblog.controllers;
 
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +64,31 @@ public class UserController {
 			}
 		}
 		
+		return view;
+	}
+	
+	@RequestMapping(value = "/createPost", method = RequestMethod.GET)
+	public String createMessagePost() {
+		logger.trace("executing inside UserController createMessagePost()");
+		return "createPost";
+	}
+	
+	@RequestMapping(value = "/createPost", method = RequestMethod.POST)
+	public String doMessagePost(@RequestParam("message") String message, Model model, HttpServletRequest request) {
+		logger.trace("executing inside UserController doMessagePost()");
+		
+		String view = "";
+		String myUsername = request.getUserPrincipal().getName(); 
+		String errorMessage = userService.createPost(myUsername, message);
+		
+		if(StringUtils.isBlank(errorMessage)) {
+			model.addAttribute("message", "Post created successfully");
+			view = "createPost";
+		} else {
+			model.addAttribute("errorMessage", errorMessage);
+			view = "error";
+		}
+
 		return view;
 	}
 }

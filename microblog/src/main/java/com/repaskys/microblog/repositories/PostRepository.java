@@ -17,13 +17,14 @@
 package com.repaskys.microblog.repositories;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import com.repaskys.microblog.domain.BlogUser;
+
+import com.repaskys.microblog.domain.Post;
 
 /**
- * This class uses <a href="http://www.springsource.org/spring-data/jpa">Spring Data</a> to expose BlogUser entities from JPA.
+ * This class uses <a href="http://www.springsource.org/spring-data/jpa">Spring Data</a> to expose Post entities from JPA.
  *
  * @author Drew Repasky
  */
-public interface BlogUserRepository extends PagingAndSortingRepository<BlogUser, Long> {
-	BlogUser findByUsername(String username);
+public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
+
 }

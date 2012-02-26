@@ -22,4 +22,5 @@ public interface UserService {
 	boolean userExists(String username);
 	String registerUser(String username, String plainTextPassword);
 	List<String> searchForUsers(String username);
+	String createPost(String username, String message);
 }

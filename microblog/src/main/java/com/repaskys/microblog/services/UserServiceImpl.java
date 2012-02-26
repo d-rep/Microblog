@@ -18,6 +18,7 @@ package com.repaskys.microblog.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -32,7 +33,9 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import com.repaskys.microblog.domain.BlogUser;
+import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.repositories.BlogUserRepository;
+import com.repaskys.microblog.repositories.PostRepository;
 
 /**
  * This implementation uses the UserDetailsManager from Spring Security, as well
@@ -52,6 +55,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private BlogUserRepository blogUserRepository;
+	
+	@Autowired
+	private PostRepository postRepository;
 	
 	// These are the same for every user we create
 	private static final boolean enabled = true;
@@ -100,5 +106,29 @@ public class UserServiceImpl implements UserService {
 			logger.debug(blogUser.getUsername());
 		}
 		return usernames;
+	}
+
+	public String createPost(String username, String message) {
+		
+		// FIXME add error handling
+		BlogUser blogUser = blogUserRepository.findByUsername(username);
+
+		Date createdDate = new Date();
+		Post post = new Post();
+		post.setBlogUser(blogUser);
+		post.setCreatedDate(createdDate);
+		post.setMessage(message);
+		
+		String errorMessage = "";
+		try {
+			postRepository.save(post);
+		} catch(DataIntegrityViolationException ex) {
+			logger.error("DataIntegrityViolationException when saving post for user " + username + ".", ex);
+			errorMessage = "Could not save post for user \"" + username + "\".";
+		} catch(RuntimeException ex) {
+			logger.error("RuntimeException when saving post for user " + username + ".", ex);
+			errorMessage = "Could not save post for user \"" + username + "\".  An unexpected problem occurred when trying to save the data.";			
+		}
+		return errorMessage;
 	}
 }
