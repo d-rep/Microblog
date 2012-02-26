@@ -7,6 +7,7 @@
 	<version>0.0.1</version>
 	<packaging>war</packaging>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.6</jdk.version>
 		<!-- Latest version of Spring is 3.1.1.RELEASE, but this is the latest Spring Security version in Maven Central. -->
 		<spring.version>3.1.0.RELEASE</spring.version>
