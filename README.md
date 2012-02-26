@@ -32,5 +32,5 @@ Build and run the code with the following commands:
 [SpringSource Tool Suite]: http://www.springsource.com/downloads/sts
 [Spring Security]: http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity.html
 [Spring MVC]: http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html
-[Spring Data JPA]: http://www.springsource.org/spring-data/jpa
+[Spring Data JPA]: http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/
 

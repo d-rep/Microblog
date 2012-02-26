@@ -16,6 +16,8 @@
 
 package com.repaskys.microblog.repositories;
 
+import java.util.List;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 import com.repaskys.microblog.domain.BlogUser;
 
@@ -26,4 +28,5 @@ import com.repaskys.microblog.domain.BlogUser;
  */
 public interface BlogUserRepository extends PagingAndSortingRepository<BlogUser, Long> {
 	BlogUser findByUsername(String username);
+	List<BlogUser> findByUsernameLike(String username);
 }

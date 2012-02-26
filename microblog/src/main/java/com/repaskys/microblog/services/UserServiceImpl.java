@@ -98,12 +98,9 @@ public class UserServiceImpl implements UserService {
 	
 	public List<String> searchForUsers(String username) {
 		List<String> usernames = new ArrayList<String>();
-		
-		// FIXME this is NOT doing the right thing; for now we just return all users
-		Iterable<BlogUser> blogUsers = blogUserRepository.findAll();
+		List<BlogUser> blogUsers = blogUserRepository.findByUsernameLike(username);
 		for(BlogUser blogUser : blogUsers) {
 			usernames.add(blogUser.getUsername());
-			logger.debug(blogUser.getUsername());
 		}
 		return usernames;
 	}
