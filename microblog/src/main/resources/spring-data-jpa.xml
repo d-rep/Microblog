@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+   <!-- directory to scan for repository classes -->
+   <jpa:repositories base-package="com.repaskys.microblog.repositories"/>
+
+   <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+      <property name="entityManagerFactory" ref="entityManagerFactory"/>
+   </bean>
+
+   <!-- refer to http://static.springsource.org/spring/docs/3.1.0.RELEASE/reference/html/orm.html#orm-jpa-setup-lcemfb -->
+   <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+      <property name="persistenceUnitName" value="jpa.microblog"/>
+      <property name="jpaVendorAdapter">
+         <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+            <property name="generateDdl" value="true"/>
+            <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+         </bean>
+      </property>
+      <property name="dataSource" ref="dataSource"/>
+      <!-- TODO do I need a load time weaver? -->
+   </bean>
+
+</beans>

@@ -69,4 +69,17 @@ public class FollowController {
 		}
 		return view;
 	}
+	
+	@RequestMapping(value = "/findUser", method = RequestMethod.GET)
+	public String findUser() {
+		logger.trace("executing inside FollowController findUser()");
+		return "user_search";
+	}
+	
+	@RequestMapping(value = "/findUser", method = RequestMethod.POST)
+	public String findUser(@RequestParam("username") String username, Model model) {
+		logger.trace("executing inside FollowController findUser() with parameter");
+		model.addAttribute("users", userService.searchForUsers(username));
+		return "user_search_results";
+	}
 }

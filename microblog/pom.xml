@@ -11,6 +11,7 @@
 		<jdk.version>1.6</jdk.version>
 		<!-- Latest version of Spring is 3.1.1.RELEASE, but this is the latest Spring Security version in Maven Central. -->
 		<spring.version>3.1.0.RELEASE</spring.version>
+		<hibernate.version>4.0.1.Final</hibernate.version>
 	</properties>
 	<build>
 		<pluginManagement>
@@ -78,7 +79,24 @@
 			<version>${spring.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- Database -->
+		<!-- Persistence -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.0.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.0.3.RELEASE</version>
+		</dependency>
+		<!-- bundle in a database driver -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
@@ -95,6 +113,12 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.6.4</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>

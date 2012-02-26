@@ -11,6 +11,7 @@
         <param-value>
         	/WEB-INF/appServlet-servlet.xml,
         	classpath:spring-dataSource.xml,
+        	classpath:spring-data-jpa.xml,
             classpath:spring-security.xml
         </param-value>
     </context-param>

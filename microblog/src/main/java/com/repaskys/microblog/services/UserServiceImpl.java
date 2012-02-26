@@ -16,6 +16,7 @@
 
 package com.repaskys.microblog.services;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,15 +31,27 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
+import com.repaskys.microblog.domain.BlogUser;
+import com.repaskys.microblog.repositories.BlogUserRepository;
+
+/**
+ * This implementation uses the UserDetailsManager from Spring Security, as well
+ * as a Repository from Spring Data JPA.
+ * 
+ * @author Drew Repasky
+ */
 @Service
 public class UserServiceImpl implements UserService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
-	UserDetailsManager userDetailsManager;
+	private UserDetailsManager userDetailsManager;
 	
 	@Autowired
-	PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private BlogUserRepository blogUserRepository;
 	
 	// These are the same for every user we create
 	private static final boolean enabled = true;
@@ -75,5 +88,17 @@ public class UserServiceImpl implements UserService {
 			errorMessage = "Could not register user \"" + username + "\".  An unexpected problem occurred when trying to save the data.";			
 		}
 		return errorMessage;
+	}
+	
+	public List<String> searchForUsers(String username) {
+		List<String> usernames = new ArrayList<String>();
+		
+		// FIXME this is NOT doing the right thing; for now we just return all users
+		Iterable<BlogUser> blogUsers = blogUserRepository.findAll();
+		for(BlogUser blogUser : blogUsers) {
+			usernames.add(blogUser.getUsername());
+			logger.debug(blogUser.getUsername());
+		}
+		return usernames;
 	}
 }
