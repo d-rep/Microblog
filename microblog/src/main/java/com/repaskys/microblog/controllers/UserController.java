@@ -17,48 +17,24 @@
 package com.repaskys.microblog.controllers;
 
 
-import java.util.Arrays;
-import java.util.List;
-
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.repaskys.microblog.services.UserService;
+
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	@Autowired
-	UserDetailsManager userDetailsManager;
-	
-	@Autowired
-	PasswordEncoder passwordEncoder;
-	
-	// These are the same for every user we create
-	private static final boolean enabled = true;
-	private static final boolean accountNonExpired = true;
-	private static final boolean credentialsNonExpired = true;
-	private static final boolean accountNonLocked = true;
-	private static final List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("user"));
-	
-	/**
-	 * Hash the plain text password and create a new UserDetails instance that can be persisted.
-	 */
-	private UserDetails initializeUser(String username, String plainTextPassword) {
-		String password = passwordEncoder.encode(plainTextPassword);
-		return new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
-	}
+	private UserService userService;
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
@@ -72,21 +48,17 @@ public class UserController {
 		
 		String view = "error";
 		
-		if(userDetailsManager.userExists(username)) {
+		if(userService.userExists(username)) {
 			view = "invalid";
 			model.addAttribute("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
 		} else {
-		
-			try {
-				userDetailsManager.createUser(initializeUser(username, plainTextPassword));
+			String errorMessage = userService.registerUser(username, plainTextPassword);
+			if(StringUtils.isBlank(errorMessage)) {
 				view = "user_created";
 				model.addAttribute("username", username);
-			} catch(DataIntegrityViolationException ex) {
-				logger.error("DataIntegrityViolationException when saving user " + username + ".", ex);
-				model.addAttribute("errorMessage", "Could not register user \"" + username + "\".  The user may already exist.");
-			} catch(RuntimeException ex) {
-				logger.error("RuntimeException when saving user " + username + ".", ex);
-				model.addAttribute("errorMessage", "Could not register user \"" + username + "\".  An unexpected problem occurred when trying to save the data.");			
+			} else {
+				view = "error";
+				model.addAttribute("errorMessage", errorMessage);
 			}
 		}
 		
