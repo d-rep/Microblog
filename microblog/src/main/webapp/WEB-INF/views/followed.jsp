@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="static/styles.css"></link>
     </head>
     <body>
-        <h1>Successfully Followed <c:out value="${usernameToFollow}"/></h1>
+    	<h1>Following</h1>
+        <p>You (<c:out value="${myUsername}"/>) are now following <c:out value="${usernameToFollow}"/></p>
     </body>
 </html>

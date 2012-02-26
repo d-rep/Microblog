@@ -16,6 +16,8 @@
 
 package com.repaskys.microblog.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,7 +44,7 @@ public class FollowController {
 	}
 	
 	@RequestMapping(value = "/doFollow", method = RequestMethod.POST)
-	public String doFollow(@RequestParam("username") String usernameToFollow, Model model) {
+	public String doFollow(@RequestParam("username") String usernameToFollow, Model model, HttpServletRequest request) {
 		logger.trace("executing inside FollowController doFollow()");
 		String view = "invalid";
 		if(StringUtils.isBlank(usernameToFollow)) {
@@ -50,9 +52,8 @@ public class FollowController {
 		} else {
 			
 			if(userService.userExists(usernameToFollow)) {
-				// TODO get my username
-				String myUsername = "";
-				logger.debug("myUsername: " + myUsername + " usernameToFollow: " + usernameToFollow);
+				String myUsername = request.getUserPrincipal().getName();
+				model.addAttribute("myUsername", myUsername);
 				model.addAttribute("usernameToFollow", usernameToFollow);
 				view = "followed";
 			} else {
