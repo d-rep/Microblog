@@ -104,11 +104,16 @@ public class UserServiceImpl implements UserService {
 		}
 		return usernames;
 	}
+	
+	private BlogUser findBlogUserByUsername(String username) {
+		// FIXME add error handling
+		BlogUser blogUser = blogUserRepository.findByUsername(username);
+		return blogUser;
+	}
 
 	public String createPost(String username, String message) {
 		
-		// FIXME add error handling
-		BlogUser blogUser = blogUserRepository.findByUsername(username);
+		BlogUser blogUser = findBlogUserByUsername(username);
 
 		Date createdDate = new Date();
 		Post post = new Post();
@@ -127,5 +132,12 @@ public class UserServiceImpl implements UserService {
 			errorMessage = "Could not save post for user \"" + username + "\".  An unexpected problem occurred when trying to save the data.";			
 		}
 		return errorMessage;
+	}
+	
+	public List<Post> getAllPostsForUser(String username) {
+		BlogUser blogUser = new BlogUser();
+		blogUser.setUsername(username);
+		List<Post> posts = postRepository.findByUsername(username);
+		return posts;
 	}
 }

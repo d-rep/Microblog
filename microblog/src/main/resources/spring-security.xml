@@ -20,6 +20,7 @@
 	    <intercept-url pattern="/register" access="permitAll" />
 	    <intercept-url pattern="/createUser" access="permitAll" />
 	    <intercept-url pattern="/createPost" access="isAuthenticated()" />
+	    <intercept-url pattern="/showPosts" access="isAuthenticated()" />
 	    <intercept-url pattern="/findUser" access="isAuthenticated()" />
 	    <intercept-url pattern="/follow" access="isAuthenticated()" />
 	    <intercept-url pattern="/doFollow" access="isAuthenticated()" />

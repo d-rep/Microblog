@@ -18,9 +18,12 @@ package com.repaskys.microblog.services;
 
 import java.util.List;
 
+import com.repaskys.microblog.domain.Post;
+
 public interface UserService {
 	boolean userExists(String username);
 	String registerUser(String username, String plainTextPassword);
 	List<String> searchForUsers(String username);
 	String createPost(String username, String message);
+	List<Post> getAllPostsForUser(String username);
 }

@@ -17,10 +17,15 @@
 package com.repaskys.microblog.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -50,6 +55,10 @@ public class BlogUser implements Serializable {
 	@Column(nullable = false)
 	private Boolean enabled;
 	
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinColumn(name="username")
+	private List<Post> posts;
+
 	public String getUsername() {
 		return username;
 	}
@@ -72,6 +81,14 @@ public class BlogUser implements Serializable {
 	
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 	
 	@Override

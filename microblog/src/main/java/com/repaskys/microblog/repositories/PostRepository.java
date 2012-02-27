@@ -16,6 +16,9 @@
 
 package com.repaskys.microblog.repositories;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.repaskys.microblog.domain.Post;
@@ -26,5 +29,6 @@ import com.repaskys.microblog.domain.Post;
  * @author Drew Repasky
  */
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
-
+	@Query("select p from Post p where p.blogUser.username = ?1")
+	List<Post> findByUsername(String username);
 }

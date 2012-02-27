@@ -17,6 +17,8 @@
 package com.repaskys.microblog.controllers;
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.services.UserService;
 
 @Controller
@@ -86,6 +89,29 @@ public class UserController {
 			view = "createPost";
 		} else {
 			model.addAttribute("errorMessage", errorMessage);
+			view = "error";
+		}
+
+		return view;
+	}
+	
+	@RequestMapping(value = "/showPosts", method = RequestMethod.GET)
+	public String showPost() {
+		logger.trace("executing inside UserController showPost()");
+		return "showPosts";
+	}
+	
+	@RequestMapping(value = "/showPosts", method = RequestMethod.POST)
+	public String showPostsForUser(@RequestParam("username") String username, Model model) {
+		logger.trace("executing inside UserController showPostsForUser()");
+		
+		String view = "";
+		if(! StringUtils.isBlank(username)) {
+			List<Post> posts = userService.getAllPostsForUser(username);
+			model.addAttribute("posts", posts);
+			view = "showPosts";
+		} else {
+			model.addAttribute("errorMessage", "Which user would you like to get message posts for?");
 			view = "error";
 		}
 

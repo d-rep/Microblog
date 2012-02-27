@@ -12,7 +12,7 @@ Database Setup
 --------------
 This webapp requires a database, so setup one and add the following JNDI entry to your servlet container: `jdbc/microblog`
 
-Add your database settings like username & password to this file: `src/main/webapp/META-INF/context.xml`
+Add your database settings like username & password to this file if using Tomcat: `src/main/webapp/META-INF/context.xml`
 
 
 Building
