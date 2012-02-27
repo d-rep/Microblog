@@ -107,12 +107,17 @@ public class UserController {
 		
 		String view = "";
 		if(! StringUtils.isBlank(username)) {
-			List<Post> posts = userService.getAllPostsForUser(username);
-			model.addAttribute("posts", posts);
-			view = "showPosts";
+			if(userService.userExists(username)) {
+				List<Post> posts = userService.getAllPostsForUser(username);
+				model.addAttribute("posts", posts);
+				view = "showPosts";
+			} else {
+				model.addAttribute("errorMessage", "The username \"" + username + "\" does not exist.");
+				view = "invalid";
+			}
 		} else {
 			model.addAttribute("errorMessage", "Which user would you like to get message posts for?");
-			view = "error";
+			view = "invalid";
 		}
 
 		return view;

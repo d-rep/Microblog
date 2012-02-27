@@ -29,6 +29,6 @@ import com.repaskys.microblog.domain.Post;
  * @author Drew Repasky
  */
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
-	@Query("select p from Post p where p.blogUser.username = ?1")
+	@Query("select p from Post p where p.blogUser.username = ?1 order by p.createdDate desc")
 	List<Post> findByUsername(String username);
 }
