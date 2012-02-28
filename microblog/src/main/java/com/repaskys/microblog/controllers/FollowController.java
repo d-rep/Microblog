@@ -16,6 +16,8 @@
 
 package com.repaskys.microblog.controllers;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -44,26 +46,26 @@ public class FollowController {
 	}
 	
 	@RequestMapping(value = "/doFollow", method = RequestMethod.POST)
-	public String doFollow(@RequestParam("username") String usernameToFollow, Model model, HttpServletRequest request) {
+	public String doFollow(@RequestParam("username") String usernameToFollow, Map<String, Object> model, HttpServletRequest request) {
 		logger.trace("executing inside FollowController doFollow()");
 		String view = "invalid";
 		if(StringUtils.isBlank(usernameToFollow)) {
-			model.addAttribute("errorMessage", "Please specify a username to follow");
+			model.put("errorMessage", "Please specify a username to follow");
 		} else {
 			
 			if(userService.userExists(usernameToFollow)) {
 				String myUsername = request.getUserPrincipal().getName();
 				
 				if(myUsername.equalsIgnoreCase(usernameToFollow)) {
-					model.addAttribute("errorMessage", "You cannot follow yourself.");
+					model.put("errorMessage", "You cannot follow yourself.");
 					view = "invalid";
 				} else {
-					model.addAttribute("myUsername", myUsername);
-					model.addAttribute("usernameToFollow", usernameToFollow);
+					model.put("myUsername", myUsername);
+					model.put("usernameToFollow", usernameToFollow);
 					view = "followed";
 				}
 			} else {
-				model.addAttribute("errorMessage", "The user you are trying to follow (\"" + usernameToFollow + "\") does not exist.");
+				model.put("errorMessage", "The user you are trying to follow (\"" + usernameToFollow + "\") does not exist.");
 				view = "invalid";
 			}
 		}
@@ -77,9 +79,9 @@ public class FollowController {
 	}
 	
 	@RequestMapping(value = "/findUser", method = RequestMethod.POST)
-	public String findUser(@RequestParam("username") String username, Model model) {
+	public String findUser(@RequestParam("username") String username, Map<String, Object> model) {
 		logger.trace("executing inside FollowController findUser() with parameter");
-		model.addAttribute("users", userService.searchForUsers(username));
+		model.put("users", userService.searchForUsers(username));
 		return "user_search_results";
 	}
 }

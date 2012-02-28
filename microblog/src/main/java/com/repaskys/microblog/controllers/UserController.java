@@ -16,8 +16,8 @@
 
 package com.repaskys.microblog.controllers;
 
-
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -41,6 +41,10 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		logger.trace("executing inside UserController register()");
@@ -48,22 +52,25 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
-	public String createUser(@RequestParam("username") String username, @RequestParam("password") String plainTextPassword, Model model) {
+	public String createUser(@RequestParam("username") String username, @RequestParam("password") String plainTextPassword, Map<String, Object> model) {
 		logger.trace("executing inside UserController createUser()");
 		
-		String view = "error";
+		String view = "";
 		
-		if(userService.userExists(username)) {
+		if(StringUtils.isBlank(username)) {
 			view = "invalid";
-			model.addAttribute("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
+			model.put("errorMessage", "What username would you like to register?");
+		} else if(userService.userExists(username)) {
+			view = "invalid";
+			model.put("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
 		} else {
 			String errorMessage = userService.registerUser(username, plainTextPassword);
 			if(StringUtils.isBlank(errorMessage)) {
 				view = "user_created";
-				model.addAttribute("username", username);
+				model.put("username", username);
 			} else {
 				view = "error";
-				model.addAttribute("errorMessage", errorMessage);
+				model.put("errorMessage", errorMessage);
 			}
 		}
 		
@@ -77,7 +84,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/createPost", method = RequestMethod.POST)
-	public String doMessagePost(@RequestParam("message") String message, Model model, HttpServletRequest request) {
+	public String doMessagePost(@RequestParam("message") String message, Map<String, Object> model, HttpServletRequest request) {
 		logger.trace("executing inside UserController doMessagePost()");
 		
 		String view = "";
@@ -85,10 +92,10 @@ public class UserController {
 		String errorMessage = userService.createPost(myUsername, message);
 		
 		if(StringUtils.isBlank(errorMessage)) {
-			model.addAttribute("message", "Post created successfully");
+			model.put("message", "Post created successfully");
 			view = "createPost";
 		} else {
-			model.addAttribute("errorMessage", errorMessage);
+			model.put("errorMessage", errorMessage);
 			view = "error";
 		}
 
