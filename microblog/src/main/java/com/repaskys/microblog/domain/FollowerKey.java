@@ -18,8 +18,8 @@ package com.repaskys.microblog.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -27,26 +27,38 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
- * Relate followers to the followed target user.
+ * This is necessary since we need the Follower relationship to have a composite
+ * primary key of two users.
  * 
  * @author Drew Repasky
  */
-@Entity
-public class Follower implements Serializable {
-
-	private static final long serialVersionUID = -2922163470411084743L;
-
-	@Id
-	private FollowerKey followerKey;
+@Embeddable
+public class FollowerKey implements Serializable {
 	
-	public FollowerKey getFollowerKey() {
-		return followerKey;
-	}
+	private static final long serialVersionUID = -1039658742412245308L;
 
-	public void setFollowerKey(FollowerKey followerKey) {
-		this.followerKey = followerKey;
+	@OneToOne
+	private BlogUser target;
+	
+	@OneToOne
+	private BlogUser follower;
+	
+	public BlogUser getTarget() {
+		return target;
 	}
-
+	
+	public void setTarget(BlogUser target) {
+		this.target = target;
+	}
+	
+	public BlogUser getFollower() {
+		return follower;
+	}
+	
+	public void setFollower(BlogUser follower) {
+		this.follower = follower;
+	}
+	
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);

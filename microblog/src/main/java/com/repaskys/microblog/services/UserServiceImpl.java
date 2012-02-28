@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 
 import com.repaskys.microblog.domain.BlogUser;
 import com.repaskys.microblog.domain.Follower;
+import com.repaskys.microblog.domain.FollowerKey;
 import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.repositories.BlogUserRepository;
 import com.repaskys.microblog.repositories.FollowerRepository;
@@ -152,8 +153,10 @@ public class UserServiceImpl implements UserService {
 		BlogUser targetBlogUser = findBlogUserByUsername(targetUsername);
 		BlogUser followerBlogUser = findBlogUserByUsername(followerUsername);
 		Follower follower = new Follower();
-		follower.setTarget(targetBlogUser);
-		follower.setFollower(followerBlogUser);
+		FollowerKey followerKey = new FollowerKey();
+		followerKey.setTarget(targetBlogUser);
+		followerKey.setFollower(followerBlogUser);
+		follower.setFollowerKey(followerKey);
 		followerRepository.save(follower);
 		return errorMessage;
 	}
