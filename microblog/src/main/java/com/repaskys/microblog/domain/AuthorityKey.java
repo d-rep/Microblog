@@ -34,7 +34,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Drew Repasky
  */
 @Embeddable
-public class AuthorityPK implements Serializable {
+public class AuthorityKey implements Serializable {
 	private static final long serialVersionUID = -2087144042691277032L;
 
 	@ManyToOne

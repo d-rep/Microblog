@@ -34,14 +34,14 @@ public class BlogAuthority implements Serializable {
 	private static final long serialVersionUID = 3156968893620763630L;
 	
 	@Id
-	AuthorityPK authority;
+	AuthorityKey authorityKey;
 
-	public AuthorityPK getAuthority() {
-		return authority;
+	public AuthorityKey getAuthorityKey() {
+		return authorityKey;
 	}
 
-	public void setAuthority(AuthorityPK authority) {
-		this.authority = authority;
+	public void setAuthorityKey(AuthorityKey authorityKey) {
+		this.authorityKey = authorityKey;
 	}
 	
 	@Override
