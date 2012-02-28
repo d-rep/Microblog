@@ -16,6 +16,7 @@
 
 package com.repaskys.microblog.controllers;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.repaskys.microblog.domain.Follower;
 import com.repaskys.microblog.services.UserService;
 
 @Controller
@@ -39,9 +41,13 @@ public class FollowController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
-	public String follow() {
+	public String follow(Map<String, Object> model, HttpServletRequest request) {
 		logger.trace("executing inside FollowController follow()");
-		return "follow";
+		String view = "follow";
+		String myUsername = request.getUserPrincipal().getName();
+		List<String> following = userService.getFollowingList(myUsername);
+		model.put("following", following);
+		return view;
 	}
 	
 	@RequestMapping(value = "/doFollow", method = RequestMethod.POST)

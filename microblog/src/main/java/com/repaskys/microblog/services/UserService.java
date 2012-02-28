@@ -18,8 +18,14 @@ package com.repaskys.microblog.services;
 
 import java.util.List;
 
+import com.repaskys.microblog.domain.Follower;
 import com.repaskys.microblog.domain.Post;
 
+/**
+ * This is a service for interacting with user data. 
+ *  
+ * @author Drew Repasky
+ */
 public interface UserService {
 	boolean userExists(String username);
 	String registerUser(String username, String plainTextPassword);
@@ -27,4 +33,5 @@ public interface UserService {
 	String createPost(String username, String message);
 	List<Post> getAllPostsForUser(String username);
 	String addFollower(String targetUsername, String followerUsername);
+	List<String> getFollowingList(String username);
 }

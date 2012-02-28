@@ -16,6 +16,9 @@
 
 package com.repaskys.microblog.repositories;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.repaskys.microblog.domain.Follower;
@@ -26,5 +29,6 @@ import com.repaskys.microblog.domain.Follower;
  * @author Drew Repasky
  */
 public interface FollowerRepository extends PagingAndSortingRepository<Follower, Long> {
-
+	@Query("select f.followerKey.target.username from Follower f where f.followerKey.follower.username = ?1 order by f.followerKey.target.username")
+	List<String> findByFollowerUsername(String username);
 }

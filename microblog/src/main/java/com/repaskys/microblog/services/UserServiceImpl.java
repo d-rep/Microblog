@@ -160,4 +160,8 @@ public class UserServiceImpl implements UserService {
 		followerRepository.save(follower);
 		return errorMessage;
 	}
+	
+	public List<String> getFollowingList(String username) {
+		return followerRepository.findByFollowerUsername(username);
+	}
 }
