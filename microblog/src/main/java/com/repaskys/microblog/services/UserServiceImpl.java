@@ -33,8 +33,10 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import com.repaskys.microblog.domain.BlogUser;
+import com.repaskys.microblog.domain.Follower;
 import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.repositories.BlogUserRepository;
+import com.repaskys.microblog.repositories.FollowerRepository;
 import com.repaskys.microblog.repositories.PostRepository;
 
 /**
@@ -58,6 +60,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private PostRepository postRepository;
+	
+	@Autowired
+	private FollowerRepository followerRepository;
 	
 	// These are the same for every user we create
 	private static final boolean enabled = true;
@@ -139,5 +144,17 @@ public class UserServiceImpl implements UserService {
 		blogUser.setUsername(username);
 		List<Post> posts = postRepository.findByUsername(username);
 		return posts;
+	}
+	
+	public String addFollower(String targetUsername, String followerUsername) {
+		String errorMessage = "";
+		// FIXME add error handling
+		BlogUser targetBlogUser = findBlogUserByUsername(targetUsername);
+		BlogUser followerBlogUser = findBlogUserByUsername(followerUsername);
+		Follower follower = new Follower();
+		follower.setTarget(targetBlogUser);
+		follower.setFollower(followerBlogUser);
+		followerRepository.save(follower);
+		return errorMessage;
 	}
 }

@@ -25,7 +25,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,9 +59,15 @@ public class FollowController {
 					model.put("errorMessage", "You cannot follow yourself.");
 					view = "invalid";
 				} else {
-					model.put("myUsername", myUsername);
-					model.put("usernameToFollow", usernameToFollow);
-					view = "followed";
+					String errorMessage = userService.addFollower(usernameToFollow, myUsername);
+					
+					if(StringUtils.isBlank(errorMessage)) {
+						model.put("myUsername", myUsername);
+						model.put("usernameToFollow", usernameToFollow);
+						view = "followed";
+					} else {
+						model.put("errorMessage", errorMessage);
+					}
 				}
 			} else {
 				model.put("errorMessage", "The user you are trying to follow (\"" + usernameToFollow + "\") does not exist.");

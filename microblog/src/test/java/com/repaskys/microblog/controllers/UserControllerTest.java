@@ -27,6 +27,11 @@ import com.repaskys.microblog.services.UserService;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+/**
+ * Unit tests for the UserController.
+ * 
+ * @author Drew Repasky
+ */
 public class UserControllerTest {
 	private UserController userController;
 	private Map<String, Object> model;

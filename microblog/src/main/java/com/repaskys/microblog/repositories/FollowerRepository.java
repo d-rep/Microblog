@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.services;
+package com.repaskys.microblog.repositories;
 
-import java.util.List;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.repaskys.microblog.domain.Post;
+import com.repaskys.microblog.domain.Follower;
 
-public interface UserService {
-	boolean userExists(String username);
-	String registerUser(String username, String plainTextPassword);
-	List<String> searchForUsers(String username);
-	String createPost(String username, String message);
-	List<Post> getAllPostsForUser(String username);
-	String addFollower(String targetUsername, String followerUsername);
+/**
+ * This class uses <a href="http://www.springsource.org/spring-data/jpa">Spring Data</a> to expose Follower entities from JPA.
+ *
+ * @author Drew Repasky
+ */
+public interface FollowerRepository extends PagingAndSortingRepository<Follower, Long> {
+
 }

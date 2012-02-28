@@ -34,7 +34,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Drew Repasky
  */
 @Entity
-public class Followers {
+public class Follower {
 	
 	@Id
 	@GeneratedValue(strategy = AUTO)
