@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<cloudbees-web-app xmlns="http://www.cloudbees.com/xml/webapp/1">
+	<appid>drew/microblog</appid>
+
+	<resource name="jdbc/microblog" auth="Container" type="javax.sql.DataSource">
+		<param name="username" value="drew" />
+		<param name="password" value="deskpop" />
+		<param name="url" value="jdbc:cloudbees://microblog" />
+	</resource>
+</cloudbees-web-app>
