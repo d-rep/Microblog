@@ -9,7 +9,8 @@
         </form>
         <c:out value="${message}"/>
 
-		<c:if test="${not empty posts}">
+		<c:choose>
+		<c:when test="${not empty posts}">
 		<table>
 			<thead>
 				<th>User</th>
@@ -27,4 +28,8 @@
 				</tbody>
 			</c:forEach>
 		</table>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+		There aren't any messages from your followers!  Why not <a href="findUser">find and add a few</a>?
+		</c:otherwise>
+		</c:choose>
