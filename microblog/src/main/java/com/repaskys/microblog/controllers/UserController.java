@@ -26,7 +26,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -83,18 +82,24 @@ public class UserController {
 		return view;
 	}
 	
-	@RequestMapping(value = "/createPost", method = RequestMethod.GET)
-	public String createMessagePost() {
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String createMessagePost(String message, Map<String, Object> model, HttpServletRequest request) {
 		logger.trace("executing inside UserController createMessagePost()");
+		
+		String myUsername = request.getUserPrincipal().getName();
+		List<Post> posts = userService.getAllFollowersPostsForUser(myUsername);
+		model.put("username", myUsername);
+		model.put("posts", posts);
+		// get all messages
 		return "createPost";
 	}
 	
-	@RequestMapping(value = "/createPost", method = RequestMethod.POST)
+	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String doMessagePost(@RequestParam("message") String message, Map<String, Object> model, HttpServletRequest request) {
 		logger.trace("executing inside UserController doMessagePost()");
 		
 		String view = "";
-		String myUsername = request.getUserPrincipal().getName(); 
+		String myUsername = request.getUserPrincipal().getName();
 		String errorMessage = userService.createPost(myUsername, message);
 		
 		if(StringUtils.isBlank(errorMessage)) {
@@ -115,21 +120,21 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/showPosts", method = RequestMethod.POST)
-	public String showPostsForUser(@RequestParam("username") String username, Model model) {
+	public String showPostsForUser(@RequestParam("username") String username, Map<String, Object> model) {
 		logger.trace("executing inside UserController showPostsForUser()");
 		
 		String view = "";
 		if(! StringUtils.isBlank(username)) {
 			if(userService.userExists(username)) {
 				List<Post> posts = userService.getAllPostsForUser(username);
-				model.addAttribute("posts", posts);
+				model.put("posts", posts);
 				view = "showPosts";
 			} else {
-				model.addAttribute("errorMessage", "The username \"" + username + "\" does not exist.");
+				model.put("errorMessage", "The username \"" + username + "\" does not exist.");
 				view = "invalid";
 			}
 		} else {
-			model.addAttribute("errorMessage", "Which user would you like to get message posts for?");
+			model.put("errorMessage", "Which user would you like to get message posts for?");
 			view = "invalid";
 		}
 

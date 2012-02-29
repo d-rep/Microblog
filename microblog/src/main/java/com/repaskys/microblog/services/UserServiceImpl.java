@@ -147,6 +147,19 @@ public class UserServiceImpl implements UserService {
 		return posts;
 	}
 	
+	public List<Post> getAllFollowersPostsForUser(String username) {
+		List<String> following = followerRepository.findByFollowerUsername(username);
+		// FIXME Currently gets ALL the messages that were ever posted.
+		List<Post> allPosts = new ArrayList<Post>();
+		
+		for(String followedUser : following) {
+			List<Post> postsForUser = postRepository.findByUsername(followedUser);
+			allPosts.addAll(postsForUser);
+		}
+		// FIXME should sort by post's created date, descending
+		return allPosts;
+	}
+	
 	public String addFollower(String targetUsername, String followerUsername) {
 		String errorMessage = "";
 		// FIXME add error handling

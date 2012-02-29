@@ -32,6 +32,7 @@ public interface UserService {
 	List<String> searchForUsers(String username);
 	String createPost(String username, String message);
 	List<Post> getAllPostsForUser(String username);
+	List<Post> getAllFollowersPostsForUser(String username);
 	String addFollower(String targetUsername, String followerUsername);
 	List<String> getFollowingList(String username);
 }
