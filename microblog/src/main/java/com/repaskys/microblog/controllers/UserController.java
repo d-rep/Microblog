@@ -45,6 +45,12 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+		logger.trace("executing inside UserController login()");
+		return "login";
+	}
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {
 		logger.trace("executing inside UserController register()");

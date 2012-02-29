@@ -10,6 +10,11 @@
 		<put-attribute name="nav" value="/WEB-INF/views/template/nav.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
 	</definition>
+	
+	<definition name="login" extends="template">
+		<put-attribute name="title" value="Sign In" />
+		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+	</definition>
 
 	<definition name="createPost" extends="template">
 		<put-attribute name="title" value="Create Post" />

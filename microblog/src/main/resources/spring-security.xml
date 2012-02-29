@@ -16,7 +16,7 @@
 
 	<http use-expressions="true">
 	    <intercept-url pattern="/index.jsp" access="permitAll" />
-	    <intercept-url pattern="/login.jsp" access="permitAll" />
+	    <intercept-url pattern="/login" access="permitAll" />
 	    <intercept-url pattern="/register" access="permitAll" />
 	    <intercept-url pattern="/createUser" access="permitAll" />
 	    <intercept-url pattern="/createPost" access="isAuthenticated()" />
@@ -25,7 +25,7 @@
 	    <intercept-url pattern="/follow" access="isAuthenticated()" />
 	    <intercept-url pattern="/doFollow" access="isAuthenticated()" />
 	    <intercept-url pattern="/**" access="denyAll" />
-	    <form-login login-page="/login.jsp"/>
+	    <form-login login-page="/login"/>
 	    <logout />
 	</http>
   
