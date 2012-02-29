@@ -2,7 +2,7 @@ Microblog
 ---------
 This is a simple Microblogging web application.  Any resemblance to existing internet services is coincidental.
 
-This project uses [Spring MVC], [Spring Data JPA], and [Spring Security].  It is setup to be edited using [SpringSource Tool Suite].
+This project uses [Spring MVC], [Spring Data JPA], [Spring Security], and [Apache Tiles].  It is setup to be edited using [SpringSource Tool Suite].
 
 Copyright &copy; 2012-, [Drew Repasky].  Licensed under [Apache License, Version 2.0].
 
@@ -39,8 +39,9 @@ Build and run the code with the following commands:
 [Java Development Kit]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [Apache Maven]: http://maven.apache.org/download.html
 [MySQL]: http://dev.mysql.com/downloads/
-[SpringSource Tool Suite]: http://www.springsource.com/downloads/sts
-[Spring Security]: http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity.html
 [Spring MVC]: http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html
 [Spring Data JPA]: http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/
+[Spring Security]: http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity.html
+[Apache Tiles]: http://tiles.apache.org/2.2/framework/tutorial/index.html
+[SpringSource Tool Suite]: http://www.springsource.com/downloads/sts
 

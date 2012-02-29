@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+       
+<tiles-definitions>
+	<definition name="template" template="/WEB-INF/views/template/layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/template/header.jsp" />
+		<put-attribute name="nav" value="/WEB-INF/views/template/nav.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp" />
+	</definition>
+
+	<definition name="createPost" extends="template">
+		<put-attribute name="title" value="Create Post" />
+		<put-attribute name="body" value="/WEB-INF/views/createPost.jsp" />
+	</definition>
+	
+	<definition name="error" extends="template">
+		<put-attribute name="title" value="Epic Fail" />
+		<put-attribute name="body" value="/WEB-INF/views/error.jsp" />
+	</definition>
+	
+	<definition name="follow" extends="template">
+		<put-attribute name="title" value="Follow" />
+		<put-attribute name="body" value="/WEB-INF/views/follow.jsp" />
+	</definition>
+	
+	<definition name="followed" extends="template">
+		<put-attribute name="title" value="Following" />
+		<put-attribute name="body" value="/WEB-INF/views/followed.jsp" />
+	</definition>
+
+	<definition name="invalid" extends="template">
+		<put-attribute name="title" value="Changes Required" />
+		<put-attribute name="body" value="/WEB-INF/views/invalid.jsp" />
+	</definition>
+	
+	<definition name="register" extends="template">
+		<put-attribute name="title" value="Register New User" />
+		<put-attribute name="body" value="/WEB-INF/views/register.jsp" />
+	</definition>
+	
+	<definition name="showPosts" extends="template">
+		<put-attribute name="title" value="Show Posts" />
+		<put-attribute name="body" value="/WEB-INF/views/showPosts.jsp" />
+	</definition>
+	
+	<definition name="user_created" extends="template">
+		<put-attribute name="title" value="New User Created" />
+		<put-attribute name="body" value="/WEB-INF/views/user_created.jsp" />
+	</definition>
+
+	<definition name="user_search_results" extends="template">
+		<put-attribute name="title" value="User List" />
+		<put-attribute name="body" value="/WEB-INF/views/user_search_results.jsp" />
+	</definition>
+	
+	<definition name="user_search" extends="template">
+		<put-attribute name="title" value="Find User" />
+		<put-attribute name="body" value="/WEB-INF/views/user_search.jsp" />
+	</definition>
+	
+	<definition name="user_search" extends="template">
+		<put-attribute name="title" value="Find User" />
+		<put-attribute name="body" value="/WEB-INF/views/user_search.jsp" />
+	</definition>
+	
+</tiles-definitions>
