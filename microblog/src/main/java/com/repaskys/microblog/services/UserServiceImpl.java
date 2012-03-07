@@ -143,20 +143,13 @@ public class UserServiceImpl implements UserService {
 	public List<Post> getAllPostsForUser(String username) {
 		BlogUser blogUser = new BlogUser();
 		blogUser.setUsername(username);
-		List<Post> posts = postRepository.findByUsername(username);
+		List<Post> posts = postRepository.findByUsernameIn(Arrays.asList(username));
 		return posts;
 	}
 	
 	public List<Post> getAllFollowersPostsForUser(String username) {
 		List<String> following = followerRepository.findByFollowerUsername(username);
-		// FIXME Currently gets ALL the messages that were ever posted.
-		List<Post> allPosts = new ArrayList<Post>();
-		
-		for(String followedUser : following) {
-			List<Post> postsForUser = postRepository.findByUsername(followedUser);
-			allPosts.addAll(postsForUser);
-		}
-		// FIXME should sort by post's created date, descending
+		List<Post> allPosts = postRepository.findByUsernameIn(following);
 		return allPosts;
 	}
 	

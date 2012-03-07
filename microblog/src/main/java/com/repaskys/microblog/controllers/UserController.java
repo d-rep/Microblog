@@ -85,12 +85,10 @@ public class UserController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String createMessagePost(String message, Map<String, Object> model, HttpServletRequest request) {
 		logger.trace("executing inside UserController createMessagePost()");
-		
 		String myUsername = request.getUserPrincipal().getName();
-		List<Post> posts = userService.getAllFollowersPostsForUser(myUsername);
 		model.put("username", myUsername);
+		List<Post> posts = userService.getAllFollowersPostsForUser(myUsername);
 		model.put("posts", posts);
-		// get all messages
 		return "createPost";
 	}
 	

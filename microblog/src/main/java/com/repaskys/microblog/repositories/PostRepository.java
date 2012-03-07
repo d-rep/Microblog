@@ -29,6 +29,7 @@ import com.repaskys.microblog.domain.Post;
  * @author Drew Repasky
  */
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
-	@Query("select p from Post p where p.blogUser.username = ?1 order by p.createdDate desc")
-	List<Post> findByUsername(String username);
+	// FIXME Currently gets ALL the messages that were ever posted.  This should be limited.
+	@Query("select p from Post p where p.blogUser.username in ?1 order by p.createdDate desc")
+	List<Post> findByUsernameIn(List<String> usernames);
 }
