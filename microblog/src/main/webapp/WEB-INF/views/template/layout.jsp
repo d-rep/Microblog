@@ -1,17 +1,18 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<!DOCTYPE HTML>
 <html>
 	<tiles:insertAttribute name="header" />
 	<body>
-		<div id="main">
+		<section id="main">
 			<h1><tiles:getAsString name="title"/></h1>
 			
 <tiles:insertAttribute name="nav" />
 
-			<div id="content">
+			<section id="content">
 <tiles:insertAttribute name="body" />
-			</div>
+			</section>
 
-		</div>
+		</section>
 <tiles:insertAttribute name="footer" />
 		
 
