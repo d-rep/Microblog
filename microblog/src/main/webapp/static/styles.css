@@ -31,9 +31,17 @@ h1 {
 	text-align: center;
 }
 
-#nav {
-	width: 175px;
+nav {
+	width: 150px;
 	float: left;
+	margin-right: 45px;
+	padding-bottom: 15px;
+	background-color: grey;
+	color: white;
+	text-align: center;
+	-moz-border-radius : 5px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 
 #content {
@@ -46,6 +54,13 @@ input[type=submit] {
 	text-align: right;
 }
 
+/* buttons have a drop shadow when you hover over them */
+input[type="submit"]:hover {
+  -webkit-box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
+  -moz-box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
+  box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
+}
+
 footer {
 	font-size: small;
 	text-align: right;
@@ -55,3 +70,14 @@ footer {
 	padding-top: 5px;
 	width: 750px;
 }
+
+
+nav a:link, nav a:visited, nav a:hover, nav a:active {
+	color: white;
+	
+}
+
+nav a:hover {
+	text-decoration: none;
+}
+
