@@ -2,9 +2,23 @@
 <cloudbees-web-app xmlns="http://www.cloudbees.com/xml/webapp/1">
 	<appid>drew/microblog</appid>
 
+   <!-- refer to: https://wiki.cloudbees.com/bin/view/RUN/DatabaseGuide -->
 	<resource name="jdbc/microblog" auth="Container" type="javax.sql.DataSource">
 		<param name="username" value="drew" />
 		<param name="password" value="deskpop" />
 		<param name="url" value="jdbc:cloudbees://microblog" />
+
+		<!-- Apache DBCP connection pool settings -->
+		<param name="maxactive" value="5" />
+		<param name="maxidle" value="2" />
+		<param name="maxWait" value="10000" />
+		<param name="removeAbandoned" value="true" />
+		<param name="removeAbandonedTimeout" value="60" />
+		<param name="logAbandoned" value="true" />
+
+		<!-- Avoid Database Idle Timeouts: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException -->
+		<param name="validationQuery" value="SELECT 1" />
+		<param name="testOnBorrow" value="true" />
 	</resource>
+
 </cloudbees-web-app>
