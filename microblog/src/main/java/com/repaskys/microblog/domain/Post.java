@@ -25,11 +25,17 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * This represents a post from a user to their followers.
@@ -39,15 +45,26 @@ import org.apache.commons.lang.builder.ToStringStyle;
 @Entity
 public class Post {
 	
+	private static final PeriodFormatter PERIOD_FORMATTER = new PeriodFormatterBuilder()
+	    .appendDays()
+	    .appendSuffix("D")
+	    .appendSeparator(" ")
+	    .appendHours()
+	    .appendSuffix("h")
+	    .appendSeparator(" ")
+	    .appendMinutes()
+	    .appendSuffix("m")
+	    .toFormatter();
+	
 	@Id
 	@GeneratedValue(strategy = AUTO)
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name="username")
+	@JoinColumn(name = "username")
 	private BlogUser blogUser;
 	
-	@Column(nullable = false, length=5000)
+	@Column(nullable = false, length = 5000)
 	private String message;
 	
 	@Column(nullable = false)
@@ -77,12 +94,27 @@ public class Post {
 		this.message = message;
 	}
 	
+	@DateTimeFormat(style="MM")
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+	
+	/**
+	 * How long ago was this post made? This is calculated based on the post's
+	 * created date, and is not saved to the database.
+	 */
+	@Transient
+	public String getAge() {
+		DateTime now = new DateTime(new Date());
+		DateTime created = new DateTime(this.createdDate);
+		
+		Period period = new Period(created, now);
+		String age = PERIOD_FORMATTER.print(period.normalizedStandard());
+		return age;
 	}
 
 	@Override

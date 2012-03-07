@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page session="false" %>
 
         <form method="POST" action="showPosts">
@@ -11,15 +11,20 @@
 		<table>
 			<thead>
 				<th>Created Date</th>
+				<th>Age</th>
 				<th>Message</th>
 			</thead>
 			<c:forEach var="post" items="${posts}">
 				<tbody>
 					<td>
-						<c:set var="createdDate" value="${post.createdDate}" />
-						<fmt:formatDate type="both" dateStyle="medium" timeStyle="medium" value="${createdDate}" />
+						<spring:eval expression="post.createdDate" />
 					</td>
-					<td><c:out value="${post.message}"/></td>
+					<td>
+						<c:out value="${post.age}"/>
+					</td>
+					<td>
+						<c:out value="${post.message}"/>
+					</td>
 				</tbody>
 			</c:forEach>
 		</table>
