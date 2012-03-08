@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 
         <form method="POST" action="doFollow">
-        	Username to Follow: <input type="username" name="username"/><br/>
+        	Username to Follow: <input type="text" name="usernameToFollow"/><br/>
         	<input type="submit" value="Follow"/>
         </form>
         

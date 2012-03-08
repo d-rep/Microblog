@@ -28,6 +28,7 @@ body {
 }
 
 h1 {
+	font-size: 1.5em;
 	text-align: center;
 }
 
@@ -81,3 +82,6 @@ nav a:hover {
 	text-decoration: none;
 }
 
+th {
+	font-size: 1.2em;
+}

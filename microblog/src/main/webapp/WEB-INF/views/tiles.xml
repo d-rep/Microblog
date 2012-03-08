@@ -46,7 +46,7 @@
 		<put-attribute name="body" value="/WEB-INF/views/register.jsp" />
 	</definition>
 	
-	<definition name="showPosts" extends="template">
+	<definition name="posts" extends="template">
 		<put-attribute name="title" value="Show Posts" />
 		<put-attribute name="body" value="/WEB-INF/views/showPosts.jsp" />
 	</definition>

@@ -16,10 +16,9 @@
 
 package com.repaskys.microblog.controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -28,7 +27,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.services.UserService;
@@ -57,7 +55,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
-	public String createUser(@RequestParam("username") String username, @RequestParam("password") String plainTextPassword, Map<String, Object> model) {
+	public String createUser(final String username, final String password, Map<String, Object> model) {
 		logger.trace("executing inside UserController createUser()");
 		
 		String view = "";
@@ -69,7 +67,7 @@ public class UserController {
 			view = "invalid";
 			model.put("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
 		} else {
-			String errorMessage = userService.registerUser(username, plainTextPassword);
+			String errorMessage = userService.registerUser(username, password);
 			if(StringUtils.isBlank(errorMessage)) {
 				view = "user_created";
 				model.put("username", username);
@@ -83,9 +81,9 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String createMessagePost(String message, Map<String, Object> model, HttpServletRequest request) {
+	public String createMessagePost(final String message, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside UserController createMessagePost()");
-		String myUsername = request.getUserPrincipal().getName();
+		String myUsername = principal.getName();
 		model.put("username", myUsername);
 		List<Post> posts = userService.getAllFollowersPostsForUser(myUsername);
 		model.put("posts", posts);
@@ -93,11 +91,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String doMessagePost(@RequestParam("message") String message, Map<String, Object> model, HttpServletRequest request) {
+	public String doMessagePost(final String message, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside UserController doMessagePost()");
 		
 		String view = "";
-		String myUsername = request.getUserPrincipal().getName();
+		String myUsername = principal.getName();
 		String errorMessage = userService.createPost(myUsername, message);
 		
 		if(StringUtils.isBlank(errorMessage)) {
@@ -111,31 +109,21 @@ public class UserController {
 		return view;
 	}
 	
-	@RequestMapping(value = "/showPosts", method = RequestMethod.GET)
-	public String showPost() {
-		logger.trace("executing inside UserController showPost()");
-		return "showPosts";
-	}
-	
-	@RequestMapping(value = "/showPosts", method = RequestMethod.POST)
-	public String showPostsForUser(@RequestParam("username") String username, Map<String, Object> model) {
+	@RequestMapping(value = "/posts", method = RequestMethod.GET)
+	public String showPostsForUser(final String username, Map<String, Object> model) {
 		logger.trace("executing inside UserController showPostsForUser()");
 		
-		String view = "";
+		String view = "posts";
 		if(! StringUtils.isBlank(username)) {
 			if(userService.userExists(username)) {
 				List<Post> posts = userService.getAllPostsForUser(username);
 				model.put("posts", posts);
-				view = "showPosts";
+				model.put("username", username);
 			} else {
 				model.put("errorMessage", "The username \"" + username + "\" does not exist.");
 				view = "invalid";
 			}
-		} else {
-			model.put("errorMessage", "Which user would you like to get message posts for?");
-			view = "invalid";
 		}
-
 		return view;
 	}
 }

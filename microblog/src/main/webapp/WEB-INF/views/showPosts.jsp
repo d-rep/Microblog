@@ -2,12 +2,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page session="false" %>
 
-        <form method="POST" action="showPosts">
+        <form method="GET" action="posts">
         	Username: <input type="username" name="username"/><br/>
         	<input type="submit" value="Show Posts"/>
         </form>
         
 		<c:if test="${not empty posts}">
+		Showing Posts for <c:out value="${username}"/>
 		<table>
 			<thead>
 				<th>Created Date</th>

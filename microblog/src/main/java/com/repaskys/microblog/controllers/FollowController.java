@@ -16,6 +16,7 @@
 
 package com.repaskys.microblog.controllers;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -41,17 +42,17 @@ public class FollowController {
 	private UserService userService;
 	
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
-	public String follow(Map<String, Object> model, HttpServletRequest request) {
+	public String follow(Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside FollowController follow()");
 		String view = "follow";
-		String myUsername = request.getUserPrincipal().getName();
+		String myUsername = principal.getName();
 		List<String> following = userService.getFollowingList(myUsername);
 		model.put("following", following);
 		return view;
 	}
 	
 	@RequestMapping(value = "/doFollow", method = RequestMethod.POST)
-	public String doFollow(@RequestParam("username") String usernameToFollow, Map<String, Object> model, HttpServletRequest request) {
+	public String doFollow(final String usernameToFollow, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside FollowController doFollow()");
 		String view = "invalid";
 		if(StringUtils.isBlank(usernameToFollow)) {
@@ -59,7 +60,7 @@ public class FollowController {
 		} else {
 			
 			if(userService.userExists(usernameToFollow)) {
-				String myUsername = request.getUserPrincipal().getName();
+				String myUsername = principal.getName();
 				
 				if(myUsername.equalsIgnoreCase(usernameToFollow)) {
 					model.put("errorMessage", "You cannot follow yourself.");
@@ -90,7 +91,7 @@ public class FollowController {
 	}
 	
 	@RequestMapping(value = "/findUser", method = RequestMethod.POST)
-	public String findUser(@RequestParam("username") String username, Map<String, Object> model) {
+	public String findUser(final String username, Map<String, Object> model) {
 		logger.trace("executing inside FollowController findUser() with parameter");
 		model.put("users", userService.searchForUsers(username));
 		return "user_search_results";

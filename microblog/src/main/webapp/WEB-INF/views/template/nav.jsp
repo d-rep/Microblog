@@ -5,7 +5,7 @@
 			</c:if>
 			<a href="./">Create Post</a><br/>
 			<a href="findUser">Find a User</a><br/>
-			<a href="showPosts">Show Posts</a><br/>
+			<a href="posts">Show Posts</a><br/>
 			<a href="follow">Follow a User</a><br/>
 			<a href="j_spring_security_logout">Log Out</a><br/>
 		</nav>
