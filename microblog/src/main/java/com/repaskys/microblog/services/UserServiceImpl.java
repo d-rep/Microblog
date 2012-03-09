@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -50,6 +52,7 @@ import com.repaskys.microblog.repositories.PostRepository;
 @Service
 public class UserServiceImpl implements UserService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	private static final int POSTS_PER_PAGE = 15;
 
 	@Autowired
 	private UserDetailsManager userDetailsManager;
@@ -150,21 +153,21 @@ public class UserServiceImpl implements UserService {
 		return errorMessage;
 	}
 	
-	public List<Post> getAllPostsForUsers(List<String> usernames) {
-		List<Post> posts = null;
+	public Page<List<Post>> getAllPostsForUsers(List<String> usernames, int pageNumber) {
+		Page<List<Post>> posts = null;
 		try {
-			posts = postRepository.findByUsernameIn(usernames);
+			posts = postRepository.findByUsernameIn(usernames, new PageRequest(pageNumber, POSTS_PER_PAGE));
 		} catch(RuntimeException ex) {
 			logger.error("RuntimeException when getting posts for these users: " + StringUtils.join(usernames, ", ") + ".", ex);
 		}
 		return posts;
 	}
 	
-	public List<Post> getAllFollowersPostsForUser(String username) {
+	public Page<List<Post>> getAllFollowersPostsForUser(String username, int pageNumber) {
 		List<String> following = getFollowingList(username);
 		// get posts for yourself as well
 		following.add(username);
-		return getAllPostsForUsers(following);
+		return getAllPostsForUsers(following, pageNumber);
 	}
 	
 	public String addFollower(String targetUsername, String followerUsername) {

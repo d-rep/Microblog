@@ -25,9 +25,11 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.services.UserService;
@@ -43,6 +45,21 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	/**
+	 * Parse an integer from a String. Returns zero when it's not an integer and
+	 * when it's less than zero.
+	 */
+	private Integer readPageNumber(final String page) {
+		Integer pageNumber = 0;
+		try {
+			pageNumber = Integer.valueOf(page);
+		} catch(NumberFormatException ex) {
+			// it's safe to eat this exception, since we correct for non-integers
+			logger.info("Page number input was invalid: " + page);
+		}
+		return (pageNumber >= 0) ? pageNumber : 0;
+	}
+	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		logger.trace("executing inside UserController login()");
@@ -81,18 +98,22 @@ public class UserController {
 		return view;
 	}
 	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String showPostsFromFollowers(Map<String, Object> model, final Principal principal) {
+	public String showPostsFromFollowers(@RequestParam(defaultValue = "0") final String page, Map<String, Object> model, final Principal principal) {
+		
+		
 		logger.trace("executing inside UserController showPostsFromFollowers()");
 		String myUsername = principal.getName();
 		model.put("username", myUsername);
-		List<Post> posts = userService.getAllFollowersPostsForUser(myUsername);
+		Page<List<Post>> posts = userService.getAllFollowersPostsForUser(myUsername, readPageNumber(page));
 		model.put("posts", posts);
 		return "createPost";
 	}
+
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String doMessagePost(final String message, Map<String, Object> model, final Principal principal) {
+	public String doMessagePost(final String message, @RequestParam(defaultValue = "0") final String page, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside UserController doMessagePost()");
 		
 		String view = "";
@@ -103,7 +124,7 @@ public class UserController {
 			model.put("message", "Post created successfully");
 			view = "createPost";
 			
-			showPostsFromFollowers(model, principal);
+			showPostsFromFollowers(page, model, principal);
 		} else {
 			model.put("errorMessage", errorMessage);
 			view = "error";
@@ -113,13 +134,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/posts", method = RequestMethod.GET)
-	public String showPostsForOneUser(final String username, Map<String, Object> model) {
+	public String showPostsForOneUser(final String username, @RequestParam(defaultValue = "0") final String page, Map<String, Object> model) {
 		logger.trace("executing inside UserController showPostsForOneUser()");
 		
 		String view = "posts";
 		if(! StringUtils.isBlank(username)) {
 			if(userService.userExists(username)) {
-				List<Post> posts = userService.getAllPostsForUsers(Arrays.asList(username));
+				Page<List<Post>> posts = userService.getAllPostsForUsers(Arrays.asList(username), readPageNumber(page));
 				model.put("posts", posts);
 				model.put("username", username);
 			} else {

@@ -18,8 +18,9 @@
 				<th>Age</th>
 				<th>Message</th>
 			</thead>
-			<c:forEach var="post" items="${posts}">
-				<tbody>
+			<tbody>
+			<c:forEach var="post" items="${posts.content}">
+				<tr>
 					<td><c:out value="${post.blogUser.username}"/></td>
 					<td>
 						<spring:eval expression="post.createdDate" />
@@ -28,9 +29,12 @@
 						<c:out value="${post.age}"/>
 					</td>
 					<td><c:out value="${post.message}"/></td>
-				</tbody>
+				</tr>
 			</c:forEach>
+			</tbody>
 		</table>
+<c:set value="/" var="screenPath"/>
+<jsp:include page="template/paging.jsp" />
 		</c:when>
 		<c:otherwise>
 		There aren't any messages from your followers!  Why not <a href="findUser">find and add a few</a>?

@@ -18,6 +18,8 @@ package com.repaskys.microblog.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -29,7 +31,6 @@ import com.repaskys.microblog.domain.Post;
  * @author Drew Repasky
  */
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
-	// FIXME Currently gets ALL the messages that were ever posted.  This should be limited.
 	@Query("select p from Post p where p.blogUser.username in ?1 order by p.createdDate desc")
-	List<Post> findByUsernameIn(List<String> usernames);
+	Page<List<Post>> findByUsernameIn(List<String> usernames, Pageable pageable);
 }

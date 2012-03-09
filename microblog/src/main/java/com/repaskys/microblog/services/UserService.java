@@ -18,6 +18,8 @@ package com.repaskys.microblog.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.repaskys.microblog.domain.Post;
 
 /**
@@ -30,8 +32,8 @@ public interface UserService {
 	String registerUser(String username, String plainTextPassword);
 	List<String> searchForUsers(String username);
 	String createPost(String username, String message);
-	List<Post> getAllPostsForUsers(List<String> usernames);
-	List<Post> getAllFollowersPostsForUser(String username);
+	Page<List<Post>> getAllPostsForUsers(List<String> usernames, int pageNumber);
+	Page<List<Post>> getAllFollowersPostsForUser(String username, int pageNumber);
 	String addFollower(String targetUsername, String followerUsername);
 	List<String> getFollowingList(String username);
 }

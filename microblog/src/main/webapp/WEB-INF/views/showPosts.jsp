@@ -8,15 +8,16 @@
         </form>
         
 		<c:if test="${not empty posts}">
-		Showing Posts for <c:out value="${username}"/>
+		<div class="success">Showing Posts for user "<c:out value="${username}"/>"</div>
 		<table>
 			<thead>
 				<th>Created Date</th>
 				<th>Age</th>
 				<th>Message</th>
 			</thead>
-			<c:forEach var="post" items="${posts}">
-				<tbody>
+			<tbody>
+			<c:forEach var="post" items="${posts.content}">
+				<tr>
 					<td>
 						<spring:eval expression="post.createdDate" />
 					</td>
@@ -26,7 +27,10 @@
 					<td>
 						<c:out value="${post.message}"/>
 					</td>
-				</tbody>
+				</tr>
 			</c:forEach>
+			</tbody>
 		</table>
+<c:set value="/posts" var="screenPath"/>
+<jsp:include page="template/paging.jsp" />
 		</c:if>

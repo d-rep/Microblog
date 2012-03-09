@@ -52,13 +52,9 @@ nav {
 }
 
 #content {
-	width: 500px;
+	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-input[type=submit] {
-	text-align: right;
 }
 
 /* buttons have a drop shadow when you hover over them */
@@ -78,16 +74,37 @@ footer {
 	width: 750px;
 }
 
-
 nav a:link, nav a:visited, nav a:hover, nav a:active {
 	color: white;
 	
 }
 
-nav a:hover {
+a:hover {
 	text-decoration: none;
 }
 
 th {
 	font-size: 1.2em;
+}
+
+#pagingPanel {
+	width: 100%;
+}
+
+#pagingPanel table {
+	font-size: 1.1em;
+	border: 1px solid blue;
+	margin: 25px auto;
+}
+
+#pagingPanel td {
+	padding: 10px 5px 10px 5px; 
+}
+
+#pagingPanel a:link, #pagingPanel a:visited, #pagingPanel a:hover, #pagingPanel a:active {
+	color: blue;
+}
+
+.currentPage {
+	color: black;
 }
