@@ -4,7 +4,7 @@
 <table>
 	<tr>
 		<%-- Build the "Previous" link --%>
-		<c:if test="${posts.hasPreviousPage()}">
+		<c:if test="${posts.number > 0}">
 			<td>
 				<c:url value="${screenPath}" var="pageUrlPrevious">
 					<c:param name="page" value="${posts.number - 1}"/>
@@ -45,7 +45,7 @@
 		</c:forEach>
 		
 		<%-- Build the "Next" link --%>
-		<c:if test="${posts.hasNextPage()}">
+		<c:if test="${posts.number < posts.totalPages - 1}">
 			<td>
 				<c:url value="${screenPath}" var="pageUrlNext">
 					<c:param name="page" value="${posts.number + 1}"/>
