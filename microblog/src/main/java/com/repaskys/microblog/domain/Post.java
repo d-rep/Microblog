@@ -52,6 +52,7 @@ public class Post {
 	    .appendHours()
 	    .appendSuffix("h")
 	    .appendSeparator(" ")
+	    .printZeroAlways()
 	    .appendMinutes()
 	    .appendSuffix("m")
 	    .toFormatter();
