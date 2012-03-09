@@ -1,5 +1,5 @@
 Microblog
----------
+=========
 This is a simple Microblogging web application.  Any resemblance to existing internet services is coincidental.
 
 This project uses [Spring MVC], [Spring Data JPA], [Spring Security], and [Apache Tiles].  It is setup to be edited using [SpringSource Tool Suite].
@@ -8,12 +8,12 @@ Copyright &copy; 2012-, [Drew Repasky].  Licensed under [Apache License, Version
 
 
 Prerequisites
--------------
+=============
 This project requires a [Java Development Kit] v1.6 or newer and [Apache Maven] 3 to compile the source code.  If you simply want to test drive the application, it does not require a stand-alone Java application server.
 
 
 Database Setup
-==============
+--------------
 This webapp requires a database, so setup one and add the following JNDI entry to your servlet container: `jdbc/microblog`
 
 Add your database settings like username & password to this file if using Tomcat: `src/main/webapp/META-INF/context.xml`
@@ -22,7 +22,7 @@ The app includes database drivers for [MySQL] 5 and uses that dialect by default
 
 
 Building
---------
+========
 First, download the latest and greatest source code:
 
     git clone git://github.com/d-rep/Microblog.git

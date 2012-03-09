@@ -18,7 +18,6 @@ package com.repaskys.microblog.services;
 
 import java.util.List;
 
-import com.repaskys.microblog.domain.Follower;
 import com.repaskys.microblog.domain.Post;
 
 /**
@@ -31,7 +30,7 @@ public interface UserService {
 	String registerUser(String username, String plainTextPassword);
 	List<String> searchForUsers(String username);
 	String createPost(String username, String message);
-	List<Post> getAllPostsForUser(String username);
+	List<Post> getAllPostsForUsers(List<String> usernames);
 	List<Post> getAllFollowersPostsForUser(String username);
 	String addFollower(String targetUsername, String followerUsername);
 	List<String> getFollowingList(String username);

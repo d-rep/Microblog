@@ -17,6 +17,7 @@
 package com.repaskys.microblog.controllers;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -118,7 +119,7 @@ public class UserController {
 		String view = "posts";
 		if(! StringUtils.isBlank(username)) {
 			if(userService.userExists(username)) {
-				List<Post> posts = userService.getAllPostsForUser(username);
+				List<Post> posts = userService.getAllPostsForUsers(Arrays.asList(username));
 				model.put("posts", posts);
 				model.put("username", username);
 			} else {

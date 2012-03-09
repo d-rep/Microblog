@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,52 +113,62 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	private BlogUser findBlogUserByUsername(String username) {
-		// FIXME add error handling
-		BlogUser blogUser = blogUserRepository.findByUsername(username);
+		BlogUser blogUser = null;
+		try {
+			blogUser = blogUserRepository.findByUsername(username);
+		} catch(RuntimeException ex) {
+			logger.error("RuntimeException when finding user " + username + ".", ex);
+		}
 		return blogUser;
 	}
 
 	public String createPost(String username, String message) {
 		
 		BlogUser blogUser = findBlogUserByUsername(username);
-
-		Date createdDate = new Date();
-		Post post = new Post();
-		post.setBlogUser(blogUser);
-		post.setCreatedDate(createdDate);
-		post.setMessage(message);
-		
 		String errorMessage = "";
-		try {
-			postRepository.save(post);
-		} catch(DataIntegrityViolationException ex) {
-			logger.error("DataIntegrityViolationException when saving post for user " + username + ".", ex);
-			errorMessage = "Could not save post for user \"" + username + "\".";
-		} catch(RuntimeException ex) {
-			logger.error("RuntimeException when saving post for user " + username + ".", ex);
-			errorMessage = "Could not save post for user \"" + username + "\".  An unexpected problem occurred when trying to save the data.";			
+
+		if(blogUser != null) {
+			Date createdDate = new Date();
+			Post post = new Post();
+			post.setBlogUser(blogUser);
+			post.setCreatedDate(createdDate);
+			post.setMessage(message);
+			
+			try {
+				postRepository.save(post);
+			} catch(DataIntegrityViolationException ex) {
+				logger.error("DataIntegrityViolationException when saving post for user " + username + ".", ex);
+				errorMessage = "Could not save post for user \"" + username + "\".";
+			} catch(RuntimeException ex) {
+				logger.error("RuntimeException when saving post for user " + username + ".", ex);
+				errorMessage = "Could not save post for user \"" + username + "\".  An unexpected problem occurred when trying to save the data.";			
+			}
+		} else {
+			errorMessage = "Could not save post because the user \"" + username + "\" could not be found.";
 		}
+		
 		return errorMessage;
 	}
 	
-	public List<Post> getAllPostsForUser(String username) {
-		BlogUser blogUser = new BlogUser();
-		blogUser.setUsername(username);
-		List<Post> posts = postRepository.findByUsernameIn(Arrays.asList(username));
+	public List<Post> getAllPostsForUsers(List<String> usernames) {
+		List<Post> posts = null;
+		try {
+			posts = postRepository.findByUsernameIn(usernames);
+		} catch(RuntimeException ex) {
+			logger.error("RuntimeException when getting posts for these users: " + StringUtils.join(usernames, ", ") + ".", ex);
+		}
 		return posts;
 	}
 	
 	public List<Post> getAllFollowersPostsForUser(String username) {
-		List<String> following = followerRepository.findByFollowerUsername(username);
+		List<String> following = getFollowingList(username);
 		// get posts for yourself as well
 		following.add(username);
-		List<Post> allPosts = postRepository.findByUsernameIn(following);
-		return allPosts;
+		return getAllPostsForUsers(following);
 	}
 	
 	public String addFollower(String targetUsername, String followerUsername) {
 		String errorMessage = "";
-		// FIXME add error handling
 		BlogUser targetBlogUser = findBlogUserByUsername(targetUsername);
 		BlogUser followerBlogUser = findBlogUserByUsername(followerUsername);
 		Follower follower = new Follower();
@@ -165,11 +176,24 @@ public class UserServiceImpl implements UserService {
 		followerKey.setTarget(targetBlogUser);
 		followerKey.setFollower(followerBlogUser);
 		follower.setFollowerKey(followerKey);
-		followerRepository.save(follower);
+		
+		try {
+			followerRepository.save(follower);
+		} catch(RuntimeException ex) {
+			logger.error("RuntimeException when the user \"" + followerUsername + "\" tried to follow \"" + targetUsername + "\".", ex);
+			errorMessage = "The user \"" + followerUsername + "\" could not follow \"" + targetUsername + "\".  An unexpected problem occurred when trying to save the data.";			
+		}
 		return errorMessage;
 	}
 	
 	public List<String> getFollowingList(String username) {
-		return followerRepository.findByFollowerUsername(username);
+		List<String> followingList = null;
+		
+		try {
+			followingList = followerRepository.findByFollowerUsername(username);
+		} catch(RuntimeException ex) {
+			logger.error("RuntimeException when finding list of this users followers: " + username + ".", ex);
+		}
+		return followingList;
 	}
 }
