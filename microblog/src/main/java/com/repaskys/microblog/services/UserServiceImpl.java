@@ -149,6 +149,8 @@ public class UserServiceImpl implements UserService {
 	
 	public List<Post> getAllFollowersPostsForUser(String username) {
 		List<String> following = followerRepository.findByFollowerUsername(username);
+		// get posts for yourself as well
+		following.add(username);
 		List<Post> allPosts = postRepository.findByUsernameIn(following);
 		return allPosts;
 	}
