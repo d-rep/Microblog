@@ -7,7 +7,7 @@
         	<textarea name="message" rows="5" cols="45"></textarea><br/>
         	<input type="submit" value="Post"/>
         </form>
-        <c:out value="${message}"/>
+        <div class="success"><c:out value="${message}"/></div>
 
 		<c:choose>
 		<c:when test="${not empty posts}">

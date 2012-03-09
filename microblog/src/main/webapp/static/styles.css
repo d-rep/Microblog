@@ -12,6 +12,12 @@ body {
 	color: blue;
 }
 
+.success {
+	color: green;
+	text-align: center;
+	font-weight: bold;
+}
+
 #main {
 	background-color: #ffffff;
 	border: 1px solid black;

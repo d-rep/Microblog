@@ -81,8 +81,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String createMessagePost(final String message, Map<String, Object> model, final Principal principal) {
-		logger.trace("executing inside UserController createMessagePost()");
+	public String showPostsFromFollowers(Map<String, Object> model, final Principal principal) {
+		logger.trace("executing inside UserController showPostsFromFollowers()");
 		String myUsername = principal.getName();
 		model.put("username", myUsername);
 		List<Post> posts = userService.getAllFollowersPostsForUser(myUsername);
@@ -101,6 +101,8 @@ public class UserController {
 		if(StringUtils.isBlank(errorMessage)) {
 			model.put("message", "Post created successfully");
 			view = "createPost";
+			
+			showPostsFromFollowers(model, principal);
 		} else {
 			model.put("errorMessage", errorMessage);
 			view = "error";
@@ -110,8 +112,8 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/posts", method = RequestMethod.GET)
-	public String showPostsForUser(final String username, Map<String, Object> model) {
-		logger.trace("executing inside UserController showPostsForUser()");
+	public String showPostsForOneUser(final String username, Map<String, Object> model) {
+		logger.trace("executing inside UserController showPostsForOneUser()");
 		
 		String view = "posts";
 		if(! StringUtils.isBlank(username)) {
