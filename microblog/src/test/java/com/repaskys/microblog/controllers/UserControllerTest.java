@@ -74,7 +74,7 @@ public class UserControllerTest {
 	public void uniqueUsernameShouldBeValid() {
 		final String username = "unique";
 		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("username", username);
+			put("message", "Thank you for registering, unique.  You can now login using your new account.");
 		}};
 		UserService mockUserService = mock(UserService.class);
 		when(mockUserService.userExists(username)).thenReturn(false);
@@ -83,7 +83,7 @@ public class UserControllerTest {
 		
 		userController.setUserService(mockUserService);
 		String view = userController.createUser(username, password, model);
-		assertEquals("user_created", view);
+		assertEquals("login", view);
 		assertEquals(expectedModel, model);
 		
 		verify(mockUserService).userExists(username);
