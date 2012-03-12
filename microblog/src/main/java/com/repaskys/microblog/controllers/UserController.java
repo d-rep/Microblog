@@ -103,7 +103,6 @@ public class UserController {
 	public String showPostsFromFollowers(@RequestParam(defaultValue = "0") final String page, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside UserController showPostsFromFollowers()");
 		String myUsername = principal.getName();
-		model.put("username", myUsername);
 		Page<List<Post>> posts = userService.getAllFollowersPostsForUser(myUsername, readPageNumber(page));
 		model.put("posts", posts);
 		return "createPost";
