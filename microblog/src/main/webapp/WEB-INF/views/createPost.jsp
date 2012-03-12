@@ -10,7 +10,7 @@
         <div class="success"><c:out value="${message}"/></div>
 
 		<c:choose>
-		<c:when test="${not empty posts}">
+		<c:when test="${not empty posts && not empty posts.content}">
 		<table>
 			<thead>
 				<th>User</th>

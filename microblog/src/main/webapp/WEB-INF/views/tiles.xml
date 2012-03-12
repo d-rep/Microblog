@@ -50,11 +50,6 @@
 		<put-attribute name="title" value="Show Posts" />
 		<put-attribute name="body" value="/WEB-INF/views/showPosts.jsp" />
 	</definition>
-	
-	<definition name="user_created" extends="template">
-		<put-attribute name="title" value="New User Created" />
-		<put-attribute name="body" value="/WEB-INF/views/user_created.jsp" />
-	</definition>
 
 	<definition name="user_search_results" extends="template">
 		<put-attribute name="title" value="User List" />

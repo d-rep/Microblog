@@ -87,8 +87,8 @@ public class UserController {
 		} else {
 			String errorMessage = userService.registerUser(username, password);
 			if(StringUtils.isBlank(errorMessage)) {
-				view = "user_created";
-				model.put("username", username);
+				view = "login";
+				model.put("message", "Thank you for registering, " + username + ".  You can now login using your new account.");
 			} else {
 				view = "error";
 				model.put("errorMessage", errorMessage);
@@ -101,8 +101,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showPostsFromFollowers(@RequestParam(defaultValue = "0") final String page, Map<String, Object> model, final Principal principal) {
-		
-		
 		logger.trace("executing inside UserController showPostsFromFollowers()");
 		String myUsername = principal.getName();
 		model.put("username", myUsername);
