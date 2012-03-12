@@ -109,8 +109,26 @@ th {
 	color: black;
 }
 
-#login form table, #register form table {
-	text-align: right;
+#login form table, #register form table, #posts, #userSearchResults, #following {
+	border: 1px solid #cccccc;
+	border-spacing: 0;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.odd {
+	background-color: #cccccc;
+}
+
+.even {
+	
+}
+
+#userSearchResults {
+	width: 200px;
+}
+
+#userSearchResults tbody tr {
+	height: 20px;
+	text-align: center;
 }

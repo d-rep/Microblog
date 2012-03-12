@@ -3,7 +3,7 @@
 
 		<c:choose>
 		<c:when test="${not empty posts && not empty posts.content}">
-		<table>
+		<table id="posts">
 			<thead>
 				<th>User</th>
 				<th>Created Date</th>
@@ -11,8 +11,8 @@
 				<th>Message</th>
 			</thead>
 			<tbody>
-			<c:forEach var="post" items="${posts.content}">
-				<tr>
+			<c:forEach var="post" items="${posts.content}" varStatus="loopStatus">
+				<tr class="${loopStatus.index % 2 == 0 ? 'odd' : 'even'}">
 					<td><c:out value="${post.blogUser.username}"/></td>
 					<td>
 						<spring:eval expression="post.createdDate" />
