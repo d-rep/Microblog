@@ -98,7 +98,6 @@ public class UserController {
 		return view;
 	}
 	
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String showPostsFromFollowers(@RequestParam(defaultValue = "0") final String page, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside UserController showPostsFromFollowers()");
@@ -107,7 +106,6 @@ public class UserController {
 		model.put("posts", posts);
 		return "createPost";
 	}
-
 	
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String doMessagePost(final String message, @RequestParam(defaultValue = "0") final String page, Map<String, Object> model, final Principal principal) {

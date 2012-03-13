@@ -24,6 +24,7 @@
 	    <intercept-url pattern="/posts" access="isAuthenticated()" />
 	    <intercept-url pattern="/findUser" access="isAuthenticated()" />
 	    <intercept-url pattern="/follow" access="isAuthenticated()" />
+	    <intercept-url pattern="/unfollow" access="isAuthenticated()" />
 	    <intercept-url pattern="/doFollow" access="isAuthenticated()" />
 	    <intercept-url pattern="/**" access="denyAll" />
 	    <form-login login-page="/login"/>

@@ -28,6 +28,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.repaskys.microblog.domain.FollowAction;
 import com.repaskys.microblog.services.UserService;
 
 @Controller
@@ -36,6 +37,9 @@ public class FollowController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserController userController;
 	
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
 	public String follow(Map<String, Object> model, final Principal principal) {
@@ -47,37 +51,58 @@ public class FollowController {
 		return view;
 	}
 	
-	@RequestMapping(value = "/doFollow", method = RequestMethod.POST)
-	public String doFollow(final String usernameToFollow, Map<String, Object> model, final Principal principal) {
-		logger.trace("executing inside FollowController doFollow()");
+	private String changeFollower(final String targetUsername, Map<String, Object> model, final Principal principal, final FollowAction followAction) {
 		String view = "invalid";
-		if(StringUtils.isBlank(usernameToFollow)) {
-			model.put("errorMessage", "Please specify a username to follow");
+		String action = followAction.getMessage();
+		if(StringUtils.isBlank(targetUsername)) {
+			model.put("errorMessage", "Please specify a username to " + action);
 		} else {
 			
-			if(userService.userExists(usernameToFollow)) {
+			if(userService.userExists(targetUsername)) {
 				String myUsername = principal.getName();
 				
-				if(myUsername.equalsIgnoreCase(usernameToFollow)) {
-					model.put("errorMessage", "You cannot follow yourself.");
+				if(myUsername.equalsIgnoreCase(targetUsername)) {
+					model.put("errorMessage", "You cannot " + action + " yourself.");
 					view = "invalid";
 				} else {
-					String errorMessage = userService.addFollower(usernameToFollow, myUsername);
+					String message = "You have successfully " + action + "ed user " + targetUsername + ".";
+					String errorMessage = "";
+					
+					if(followAction == FollowAction.FOLLOW) {
+						userService.addFollower(targetUsername, myUsername);
+					} else if(followAction == FollowAction.UNFOLLOW) {
+						userService.removeFollower(targetUsername, myUsername);
+					}
 					
 					if(StringUtils.isBlank(errorMessage)) {
 						model.put("myUsername", myUsername);
-						model.put("usernameToFollow", usernameToFollow);
-						view = "followed";
+						model.put("targetUsername", targetUsername);
+						model.put("message", message);
+						
+						// take user back to the home screen
+						view = userController.showPostsFromFollowers(null, model, principal);
 					} else {
 						model.put("errorMessage", errorMessage);
 					}
 				}
 			} else {
-				model.put("errorMessage", "The user you are trying to follow (\"" + usernameToFollow + "\") does not exist.");
+				model.put("errorMessage", "The user you are trying to " + action + " (\"" + targetUsername + "\") does not exist.");
 				view = "invalid";
 			}
 		}
 		return view;
+	}
+	
+	@RequestMapping(value = "/follow", method = RequestMethod.POST)
+	public String doFollow(final String usernameToFollow, Map<String, Object> model, final Principal principal) {
+		logger.trace("executing inside FollowController doFollow()");
+		return changeFollower(usernameToFollow, model, principal, FollowAction.FOLLOW);
+	}
+	
+	@RequestMapping(value = "/unfollow", method = RequestMethod.POST)
+	public String unfollow(final String usernameToUnfollow, Map<String, Object> model, final Principal principal) {
+		logger.trace("executing inside FollowController unfollow()");
+		return changeFollower(usernameToUnfollow, model, principal, FollowAction.UNFOLLOW);
 	}
 	
 	@RequestMapping(value = "/findUser", method = RequestMethod.GET)

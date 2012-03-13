@@ -30,11 +30,6 @@
 		<put-attribute name="title" value="Follow" />
 		<put-attribute name="body" value="/WEB-INF/views/follow.jsp" />
 	</definition>
-	
-	<definition name="followed" extends="template">
-		<put-attribute name="title" value="Following" />
-		<put-attribute name="body" value="/WEB-INF/views/followed.jsp" />
-	</definition>
 
 	<definition name="invalid" extends="template">
 		<put-attribute name="title" value="Changes Required" />

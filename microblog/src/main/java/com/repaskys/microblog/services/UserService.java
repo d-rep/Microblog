@@ -35,5 +35,6 @@ public interface UserService {
 	Page<List<Post>> getAllPostsForUsers(List<String> usernames, int pageNumber);
 	Page<List<Post>> getAllFollowersPostsForUser(String username, int pageNumber);
 	String addFollower(String targetUsername, String followerUsername);
+	String removeFollower(String targetUsername, String followerUsername);
 	List<String> getFollowingList(String username);
 }

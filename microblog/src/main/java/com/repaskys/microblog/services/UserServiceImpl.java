@@ -189,6 +189,25 @@ public class UserServiceImpl implements UserService {
 		return errorMessage;
 	}
 	
+	public String removeFollower(String targetUsername, String followerUsername) {
+		String errorMessage = "";
+		BlogUser targetBlogUser = findBlogUserByUsername(targetUsername);
+		BlogUser followerBlogUser = findBlogUserByUsername(followerUsername);
+		Follower follower = new Follower();
+		FollowerKey followerKey = new FollowerKey();
+		followerKey.setTarget(targetBlogUser);
+		followerKey.setFollower(followerBlogUser);
+		follower.setFollowerKey(followerKey);
+		
+		try {
+			followerRepository.delete(follower);
+		} catch(RuntimeException ex) {
+			logger.error("RuntimeException when the user \"" + followerUsername + "\" tried to unfollow \"" + targetUsername + "\".", ex);
+			errorMessage = "The user \"" + followerUsername + "\" could not unfollow \"" + targetUsername + "\".  An unexpected problem occurred when trying to delete the data.";			
+		}
+		return errorMessage;
+	}
+	
 	public List<String> getFollowingList(String username) {
 		List<String> followingList = null;
 		

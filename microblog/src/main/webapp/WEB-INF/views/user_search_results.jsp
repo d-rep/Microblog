@@ -12,7 +12,7 @@
 						<c:out value="${user}"/>
 					</td>
 					<td>
-				        <form method="POST" action="doFollow">
+				        <form method="POST" action="follow">
 				        	<input type="hidden" name="usernameToFollow" value="<c:out value="${user}"/>"/>
 				        	<input type="submit" value="Follow"/>
 				        </form>
