@@ -2,8 +2,9 @@
 <%@ page session="false" %>
 
         <form method="POST" action="./">
-        	Enter message here:<br/>
-        	<textarea name="message" rows="5" cols="45"></textarea><br/>
+        	<span>Enter message here:</span>
+        	<textarea id="createMessage" name="message"></textarea>
+        	<div id="counter"></div>
         	<input type="submit" value="Post"/>
         </form>
         <div class="success"><c:out value="${message}"/></div>

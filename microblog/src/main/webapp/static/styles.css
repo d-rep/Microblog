@@ -159,3 +159,8 @@ th {
 	padding-bottom: 5px;
 	margin-left: 20px;
 }
+
+#createMessage {
+	width: 70%;
+	height: 50px;
+}
