@@ -9,7 +9,9 @@
         <h1>Currently Following</h1>
         <table id="following">
         	<thead>
-        		<th colspan="2">Username</th>
+        		<tr>
+        			<th colspan="2">Username</th>
+        		</tr>
         	</thead>
 			<tbody>
 				<c:forEach var="follow" items="${following}" varStatus="loopStatus">

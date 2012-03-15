@@ -112,9 +112,14 @@ public class FollowController {
 	}
 	
 	@RequestMapping(value = "/findUser", method = RequestMethod.POST)
-	public String findUser(final String username, Map<String, Object> model) {
+	public String findUser(final String username, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside FollowController findUser() with parameter");
 		model.put("users", userService.searchForUsers(username));
+		
+		// get who the user is following, so that we can show the appropriate follow/unfollow button
+		String myUsername = principal.getName();
+		List<String> following = userService.getFollowingList(myUsername);
+		model.put("following", following);
 		return "user_search_results";
 	}
 }
