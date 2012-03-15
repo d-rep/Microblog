@@ -20,6 +20,8 @@
 	    <intercept-url pattern="/register" access="permitAll" />
 	    <intercept-url pattern="/createUser" access="permitAll" />
 	    <intercept-url pattern="/favicon.ico" access="permitAll" />
+	    <intercept-url pattern="/error" access="permitAll" />
+	    <intercept-url pattern="/errorNotFound" access="permitAll" />
 	    <intercept-url pattern="/" access="isAuthenticated()" />
 	    <intercept-url pattern="/posts" access="isAuthenticated()" />
 	    <intercept-url pattern="/findUser" access="isAuthenticated()" />

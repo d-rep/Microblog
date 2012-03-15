@@ -26,6 +26,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/error.jsp" />
 	</definition>
 	
+	<definition name="errorNotFound" extends="template">
+		<put-attribute name="title" value="Page Not Found" />
+		<put-attribute name="body" value="/WEB-INF/views/errorNotFound.jsp" />
+	</definition>
+	
 	<definition name="follow" extends="template">
 		<put-attribute name="title" value="Follow" />
 		<put-attribute name="body" value="/WEB-INF/views/follow.jsp" />

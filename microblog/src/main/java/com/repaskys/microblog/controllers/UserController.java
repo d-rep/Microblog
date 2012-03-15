@@ -72,6 +72,18 @@ public class UserController {
 		return "register";
 	}
 	
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String error() {
+		logger.trace("executing inside UserController error()");
+		return "error";
+	}
+	
+	@RequestMapping(value = "/errorNotFound", method = RequestMethod.GET)
+	public String errorNotFound() {
+		logger.trace("executing inside UserController errorNotFound()");
+		return "errorNotFound";
+	}
+	
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
 	public String createUser(final String username, final String password, Map<String, Object> model) {
 		logger.trace("executing inside UserController createUser()");
