@@ -132,3 +132,30 @@ th {
 	height: 20px;
 	text-align: center;
 }
+
+#posts {
+	width: 100%;
+	margin-top: 15px;	
+}
+
+.postHeader {
+	width: 100%;
+}
+
+.username {
+	color: black;
+}
+
+.age {
+	color: grey;
+	font-size: 0.75em;
+	text-align: right;
+	float: right;
+}
+
+.message {
+	font-size: 1.25em;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-left: 20px;
+}

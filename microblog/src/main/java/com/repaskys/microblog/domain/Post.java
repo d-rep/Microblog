@@ -47,7 +47,7 @@ public class Post {
 	
 	private static final PeriodFormatter PERIOD_FORMATTER = new PeriodFormatterBuilder()
 	    .appendDays()
-	    .appendSuffix("D")
+	    .appendSuffix("d")
 	    .appendSeparator(" ")
 	    .appendHours()
 	    .appendSuffix("h")
