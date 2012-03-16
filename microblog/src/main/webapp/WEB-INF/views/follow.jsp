@@ -5,6 +5,7 @@
         	Username to Follow: <input type="text" name="usernameToFollow"/><br/>
         	<input type="submit" value="Follow"/>
         </form>
+        <div class="success"><c:out value="${message}"/></div>
         
         <h1>Currently Following</h1>
         <table id="following">

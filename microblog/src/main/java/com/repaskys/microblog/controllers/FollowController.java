@@ -38,9 +38,6 @@ public class FollowController {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private UserController userController;
-	
 	@RequestMapping(value = "/follow", method = RequestMethod.GET)
 	public String follow(Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside FollowController follow()");
@@ -79,8 +76,7 @@ public class FollowController {
 						model.put("targetUsername", targetUsername);
 						model.put("message", message);
 						
-						// take user back to the home screen
-						view = userController.showPostsFromFollowers(null, model, principal);
+						view = follow(model, principal);
 					} else {
 						model.put("errorMessage", errorMessage);
 					}
