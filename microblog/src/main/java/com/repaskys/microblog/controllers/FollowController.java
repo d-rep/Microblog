@@ -31,6 +31,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.repaskys.microblog.domain.FollowAction;
 import com.repaskys.microblog.services.UserService;
 
+/**
+ * These are operations involving following and unfollowing users.
+ *  
+ * @author Drew Repasky
+ */
 @Controller
 public class FollowController {
 	private static final Logger logger = LoggerFactory.getLogger(FollowController.class);

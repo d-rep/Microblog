@@ -34,6 +34,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.services.UserService;
 
+/**
+ * These are operations involving users, such as logging in, registering, and
+ * showing/creating posts.
+ * 
+ * @author Drew Repasky
+ */
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -49,7 +55,7 @@ public class UserController {
 	 * Parse an integer from a String. Returns zero when it's not an integer and
 	 * when it's less than zero.
 	 */
-	private Integer readPageNumber(final String page) {
+	protected Integer readPageNumber(final String page) {
 		Integer pageNumber = 0;
 		try {
 			pageNumber = Integer.valueOf(page);
