@@ -26,6 +26,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -65,7 +66,8 @@ public class Post {
 	@JoinColumn(name = "username")
 	private BlogUser blogUser;
 	
-	@Column(nullable = false, length = 5000)
+	@Size(min=1, max = 500, message="Post {javax.validation.constraints.Size.message}")
+	@Column(nullable = false, length = 500)
 	private String message;
 	
 	@Column(nullable = false)
