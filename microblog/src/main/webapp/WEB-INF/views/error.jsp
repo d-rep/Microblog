@@ -3,6 +3,6 @@
         <strong>Well, this is embarrassing, but something went horribly wrong...</strong>
         <p class="error">
         <c:out value="${errorMessage}"/>
-        <c:out value="${exception.getMessage()}"/>
+        <c:out value="${exception.message}"/>
         </p>
         
