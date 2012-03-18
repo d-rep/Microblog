@@ -26,6 +26,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -45,8 +47,11 @@ public class BlogUser implements Serializable {
 	private static final long serialVersionUID = 7342832593953711366L;
 
 	@Id
+	@Size(min = 1, max=20, message="Username {javax.validation.constraints.Size.message}")
+	@Pattern(regexp = "[a-zA-Z]*", message="Username must be all letters")
 	private String username;
 	
+	@Size(min = 1, max=20, message="Password {javax.validation.constraints.Size.message}")
 	@Column(nullable = false)
 	private String password;
 	

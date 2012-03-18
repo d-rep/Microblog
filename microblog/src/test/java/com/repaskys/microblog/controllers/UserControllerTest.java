@@ -28,10 +28,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.validation.BindingResult;
 
+import com.repaskys.microblog.domain.BlogUser;
 import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.services.UserService;
 
@@ -44,15 +47,33 @@ public class UserControllerTest {
 	
 	private static final String USERNAME = "drew";
 	private static final String PASSWORD = "password";
+	private static final BlogUser BLOG_USER = new BlogUser();
 	
 	private UserController userController;
 	private Map<String, Object> model;
 	
+	@BeforeClass
+	public static final void oneTimeSetUp() {
+		BLOG_USER.setUsername(USERNAME);
+		BLOG_USER.setPassword(PASSWORD);
+	}
+	
 	private static final Principal getMockSecurityPrincipal() {
-		Principal mockPrincipal;
-		mockPrincipal = mock(Principal.class);
+		Principal mockPrincipal = mock(Principal.class);
 		when(mockPrincipal.getName()).thenReturn(USERNAME);
 		return mockPrincipal;
+	}
+	
+	private static final BindingResult getMockBindingResultWithError() {
+		BindingResult bindingResult = mock(BindingResult.class);
+		when(bindingResult.hasErrors()).thenReturn(true);
+		return bindingResult;
+	}
+	
+	private static final BindingResult getMockBindingResultWithoutError() {
+		BindingResult bindingResult = mock(BindingResult.class);
+		when(bindingResult.hasErrors()).thenReturn(false);
+		return bindingResult;
 	}
 	
 	private static final Page<List<Post>> getPagesOfPosts() {
@@ -116,7 +137,12 @@ public class UserControllerTest {
 	
 	@Test
 	public void registerView() {
-		assertEquals("register", userController.register());
+		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
+			put("blogUser", new BlogUser());
+		}};
+		String view = userController.register(model);
+		assertEquals("register", view);
+		assertEquals(expectedModel, model);
 	}
 	
 	@Test
@@ -129,14 +155,22 @@ public class UserControllerTest {
 		assertEquals("errorNotFound", userController.errorNotFound());
 	}
 	
+	/**
+	 * This is not calling the real BlogUser validation; it verifies that the
+	 * BindingResult is checked for validation errors.
+	 */
 	@Test
-	public void blankUsernameShouldBeInvalid() {
+	public void invalidUserShouldReshowTheRegistrationView() {
 		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("errorMessage", "What username would you like to register?");
+			put("blogUser", BLOG_USER);
 		}};
-		String view = userController.createUser("", PASSWORD, model);
-		assertEquals("invalid", view);
+		
+		BindingResult mockBindingResult = getMockBindingResultWithError();
+		String view = userController.createUser(BLOG_USER, mockBindingResult, model);
+		assertEquals("register", view);
 		assertEquals(expectedModel, model);
+		
+		verify(mockBindingResult).hasErrors();
 	}
 	
 	@Test
@@ -148,10 +182,12 @@ public class UserControllerTest {
 		when(mockUserService.userExists(USERNAME)).thenReturn(true);
 		
 		userController.setUserService(mockUserService);
-		String view = userController.createUser(USERNAME, PASSWORD, model);
+		BindingResult mockBindingResult = getMockBindingResultWithoutError();
+		String view = userController.createUser(BLOG_USER, mockBindingResult, model);
 		assertEquals("invalid", view);
 		assertEquals(expectedModel, model);
 		verify(mockUserService).userExists(USERNAME);
+		verify(mockBindingResult).hasErrors();
 	}
 	
 	@Test
@@ -165,12 +201,14 @@ public class UserControllerTest {
 		when(mockUserService.registerUser(USERNAME, PASSWORD)).thenReturn("");
 		
 		userController.setUserService(mockUserService);
-		String view = userController.createUser(USERNAME, PASSWORD, model);
+		BindingResult mockBindingResult = getMockBindingResultWithoutError();
+		String view = userController.createUser(BLOG_USER, mockBindingResult, model);
 		assertEquals("login", view);
 		assertEquals(expectedModel, model);
 		
 		verify(mockUserService).userExists(USERNAME);
 		verify(mockUserService).registerUser(USERNAME, PASSWORD);
+		verify(mockBindingResult).hasErrors();
 	}
 	
 	
@@ -185,12 +223,14 @@ public class UserControllerTest {
 		when(mockUserService.registerUser(USERNAME, PASSWORD)).thenReturn(errorMessage);
 		
 		userController.setUserService(mockUserService);
-		String view = userController.createUser(USERNAME, PASSWORD, model);
+		BindingResult mockBindingResult = getMockBindingResultWithoutError();
+		String view = userController.createUser(BLOG_USER, mockBindingResult, model);
 		assertEquals("error", view);
 		assertEquals(expectedModel, model);
 		
 		verify(mockUserService).userExists(USERNAME);
 		verify(mockUserService).registerUser(USERNAME, PASSWORD);
+		verify(mockBindingResult).hasErrors();
 	}
 	
 	@Test

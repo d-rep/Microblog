@@ -1,16 +1,22 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false" %>
 
 	<section id="register">
 	        
-		<form method="POST" action="createUser">
+		<form:form method="POST" action="createUser" commandName="blogUser">
 			<table>
 				<tr>
 					<td>
 						<label for="username">Username: </label>
 					</td>
 					<td>
-						<input type="text" name="username"/>
+						<form:input type="text" path="username"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<form:errors path="username" cssClass="error"></form:errors>
 					</td>
 				</tr>
 				<tr>
@@ -18,7 +24,12 @@
 						<label for="password">Password: </label>
 					</td>
 					<td>
-						<input type="password" name="password"/>
+						<form:input type="password" path="password"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<form:errors path="password" cssClass="error"></form:errors>
 					</td>
 				</tr>
 				<tr>
@@ -27,6 +38,6 @@
 					</td>
 				</tr>
 			</table>
-		</form>
+		</form:form>
 		
 	</section>

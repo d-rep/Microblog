@@ -34,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.repaskys.microblog.domain.BlogUser;
 import com.repaskys.microblog.domain.Post;
 import com.repaskys.microblog.services.UserService;
 
@@ -76,8 +77,11 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register() {
+	public String register(Map<String, Object> model) {
 		logger.trace("executing inside UserController register()");
+		if(! model.containsKey("blogUser")) {
+			model.put("blogUser", new BlogUser());
+		}
 		return "register";
 	}
 	
@@ -94,28 +98,32 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/createUser", method = RequestMethod.POST)
-	public String createUser(final String username, final String password, Map<String, Object> model) {
+	public String createUser(@Valid BlogUser blogUser, BindingResult result, Map<String, Object> model) {
 		logger.trace("executing inside UserController createUser()");
 		
 		String view = "";
 		
-		if(StringUtils.isBlank(username)) {
-			view = "invalid";
-			model.put("errorMessage", "What username would you like to register?");
-		} else if(userService.userExists(username)) {
-			view = "invalid";
-			model.put("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
-		} else {
-			String errorMessage = userService.registerUser(username, password);
-			if(StringUtils.isBlank(errorMessage)) {
-				view = "login";
-				model.put("message", "Thank you for registering, " + username + ".  You can now login using your new account.");
+		if(! result.hasErrors()) {
+			String username = blogUser.getUsername();
+			String password = blogUser.getPassword();
+			if(userService.userExists(username)) {
+				view = "invalid";
+				model.put("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
 			} else {
-				view = "error";
-				model.put("errorMessage", errorMessage);
+				String errorMessage = userService.registerUser(username, password);
+				if(StringUtils.isBlank(errorMessage)) {
+					view = "login";
+					model.put("message", "Thank you for registering, " + username + ".  You can now login using your new account.");
+				} else {
+					view = "error";
+					model.put("errorMessage", errorMessage);
+				}
 			}
+		} else {
+			logger.debug("Registering new BlogUser failed validation.");
+			model.put("blogUser", blogUser);
+			view = register(model);
 		}
-		
 		return view;
 	}
 	
@@ -151,6 +159,7 @@ public class UserController {
 			}
 		} else {
 			logger.debug("Posted message failed validation.");
+			model.put("post", post);
 			view = "createPost";
 		}
 
