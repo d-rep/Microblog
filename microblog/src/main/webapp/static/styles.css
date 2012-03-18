@@ -123,6 +123,10 @@ th {
 	
 }
 
+.postCell {
+	max-width: 300px;
+}
+
 #userSearchResults {
 	width: 200px;
 }

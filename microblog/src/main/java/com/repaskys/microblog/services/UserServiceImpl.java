@@ -125,17 +125,14 @@ public class UserServiceImpl implements UserService {
 		return blogUser;
 	}
 
-	public String createPost(String username, String message) {
+	public String createPost(String username, Post post) {
 		
 		BlogUser blogUser = findBlogUserByUsername(username);
 		String errorMessage = "";
 
 		if(blogUser != null) {
-			Date createdDate = new Date();
-			Post post = new Post();
 			post.setBlogUser(blogUser);
-			post.setCreatedDate(createdDate);
-			post.setMessage(message);
+			post.setCreatedDate(new Date());
 			
 			try {
 				postRepository.save(post);

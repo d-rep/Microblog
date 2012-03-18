@@ -31,7 +31,7 @@ public interface UserService {
 	boolean userExists(String username);
 	String registerUser(String username, String plainTextPassword);
 	List<String> searchForUsers(String username);
-	String createPost(String username, String message);
+	String createPost(String username, Post post);
 	Page<List<Post>> getAllPostsForUsers(List<String> usernames, int pageNumber);
 	Page<List<Post>> getAllFollowersPostsForUser(String username, int pageNumber);
 	String addFollower(String targetUsername, String followerUsername);

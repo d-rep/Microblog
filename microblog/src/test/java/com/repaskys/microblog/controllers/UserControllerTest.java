@@ -198,6 +198,7 @@ public class UserControllerTest {
 		final Page<List<Post>> pagesOfPosts = getPagesOfPosts();
 		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
 			put("posts", pagesOfPosts);
+			put("post", new Post());
 		}};
 		
 		Principal mockPrincipal = getMockSecurityPrincipal();

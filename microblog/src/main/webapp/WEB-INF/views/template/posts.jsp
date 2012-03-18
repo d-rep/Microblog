@@ -7,7 +7,7 @@
 			<tbody>
 			<c:forEach var="post" items="${posts.content}" varStatus="loopStatus">
 				<tr class="${loopStatus.index % 2 == 0 ? 'odd' : 'even'}">
-					<td title="posted on <spring:eval expression="post.createdDate" />">
+					<td class="postCell" title="posted on <spring:eval expression="post.createdDate" />">
 						<div class="postHeader">
 							<span class="username"><c:out value="${post.blogUser.username}"/>:</span>
 							<span class="age"><c:out value="${post.age}"/></span>

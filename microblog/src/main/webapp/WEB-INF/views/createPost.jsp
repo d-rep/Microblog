@@ -1,12 +1,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page session="false" %>
 
-        <form method="POST" action="./">
+        <form:form method="POST" action="./" commandName="post">
         	<span>Enter message here:</span>
-        	<textarea id="createMessage" name="message"></textarea>
+        	<form:textarea id="createMessage" path="message"></form:textarea>
+        	<div><form:errors path="message" cssClass="error"></form:errors></div>
         	<div id="counter"></div>
         	<input type="submit" value="Post"/>
-        </form>
+        </form:form>
         <div class="success"><c:out value="${message}"/></div>
 
 <c:set value="/" var="screenPath"/>
