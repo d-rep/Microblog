@@ -39,6 +39,7 @@ import com.repaskys.microblog.domain.BlogUser;
 import com.repaskys.microblog.domain.Follower;
 import com.repaskys.microblog.domain.FollowerKey;
 import com.repaskys.microblog.domain.Post;
+import com.repaskys.microblog.dto.UserPostDto;
 import com.repaskys.microblog.repositories.BlogUserRepository;
 import com.repaskys.microblog.repositories.FollowerRepository;
 import com.repaskys.microblog.repositories.PostRepository;
@@ -150,17 +151,31 @@ public class UserServiceImpl implements UserService {
 		return errorMessage;
 	}
 	
-	public Page<List<Post>> getAllPostsForUsers(List<String> usernames, int pageNumber) {
-		Page<List<Post>> posts = null;
+	public List<UserPostDto> getFollowersPostsForUser(String username) {
+		List<String> following = getFollowingList(username);
+		// get posts for yourself as well
+		following.add(username);
+		
+		List<Post> posts = null;
+		try {
+			posts = postRepository.findByUsernameIn(following);
+		} catch(RuntimeException ex) {
+			logger.error("RuntimeException when getting posts for these users: " + StringUtils.join(following, ", ") + ".", ex);
+		}
+		return UserPostDto.createUserPosts(posts);
+	}
+	
+	public Page<Post> getAllPostsForUsers(List<String> usernames, int pageNumber) {
+		Page<Post> posts = null;
 		try {
 			posts = postRepository.findByUsernameIn(usernames, new PageRequest(pageNumber, POSTS_PER_PAGE));
 		} catch(RuntimeException ex) {
-			logger.error("RuntimeException when getting posts for these users: " + StringUtils.join(usernames, ", ") + ".", ex);
+			logger.error("RuntimeException when getting posts for these users (paged): " + StringUtils.join(usernames, ", ") + ".", ex);
 		}
 		return posts;
 	}
 	
-	public Page<List<Post>> getAllFollowersPostsForUser(String username, int pageNumber) {
+	public Page<Post> getAllFollowersPostsForUser(String username, int pageNumber) {
 		List<String> following = getFollowingList(username);
 		// get posts for yourself as well
 		following.add(username);

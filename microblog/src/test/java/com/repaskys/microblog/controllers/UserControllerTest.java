@@ -76,7 +76,7 @@ public class UserControllerTest {
 		return bindingResult;
 	}
 	
-	private static final Page<List<Post>> getPagesOfPosts() {
+	private static final Page<Post> getPagesOfPosts() {
 		final Post post = new Post();
 		post.setMessage("some post message");
 		
@@ -84,7 +84,7 @@ public class UserControllerTest {
 			add(post);
 		}};
 		
-		Page<List<Post>> pagesOfPosts = new PageImpl(posts);
+		Page<Post> pagesOfPosts = new PageImpl<Post>(posts);
 		
 		return pagesOfPosts;
 	}
@@ -235,7 +235,7 @@ public class UserControllerTest {
 	
 	@Test
 	public void showPostsFromFollowers() {
-		final Page<List<Post>> pagesOfPosts = getPagesOfPosts();
+		final Page<Post> pagesOfPosts = getPagesOfPosts();
 		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
 			put("posts", pagesOfPosts);
 			put("post", new Post());

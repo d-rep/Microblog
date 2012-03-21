@@ -11,7 +11,7 @@
 						<label for="username">Username: </label>
 					</td>
 					<td>
-						<form:input type="text" path="username"/>
+						<form:input type="text" path="username" maxlength="20"/>
 					</td>
 				</tr>
 				<tr>
@@ -24,7 +24,7 @@
 						<label for="password">Password: </label>
 					</td>
 					<td>
-						<form:input type="password" path="password"/>
+						<form:input type="password" path="password" maxlength="20"/>
 					</td>
 				</tr>
 				<tr>

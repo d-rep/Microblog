@@ -21,6 +21,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 
 import com.repaskys.microblog.domain.Post;
+import com.repaskys.microblog.dto.UserPostDto;
 
 /**
  * This is a service for interacting with user data. 
@@ -32,8 +33,9 @@ public interface UserService {
 	String registerUser(String username, String plainTextPassword);
 	List<String> searchForUsers(String username);
 	String createPost(String username, Post post);
-	Page<List<Post>> getAllPostsForUsers(List<String> usernames, int pageNumber);
-	Page<List<Post>> getAllFollowersPostsForUser(String username, int pageNumber);
+	List<UserPostDto> getFollowersPostsForUser(String username);
+	Page<Post> getAllPostsForUsers(List<String> usernames, int pageNumber);
+	Page<Post> getAllFollowersPostsForUser(String username, int pageNumber);
 	String addFollower(String targetUsername, String followerUsername);
 	String removeFollower(String targetUsername, String followerUsername);
 	List<String> getFollowingList(String username);

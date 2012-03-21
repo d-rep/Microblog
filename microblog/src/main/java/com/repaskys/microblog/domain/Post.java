@@ -16,9 +16,10 @@
 
 package com.repaskys.microblog.domain;
 
+import static javax.persistence.GenerationType.AUTO;
+
 import java.util.Date;
 
-import static javax.persistence.GenerationType.AUTO;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

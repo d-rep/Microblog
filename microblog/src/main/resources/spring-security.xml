@@ -23,6 +23,7 @@
 	    <intercept-url pattern="/error" access="permitAll" />
 	    <intercept-url pattern="/errorNotFound" access="permitAll" />
 	    <intercept-url pattern="/" access="isAuthenticated()" />
+	    <intercept-url pattern="/livePosts" access="isAuthenticated()" />
 	    <intercept-url pattern="/posts" access="isAuthenticated()" />
 	    <intercept-url pattern="/findUser" access="isAuthenticated()" />
 	    <intercept-url pattern="/follow" access="isAuthenticated()" />

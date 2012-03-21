@@ -22,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.repaskys.microblog.domain.Post;
 
@@ -31,6 +32,14 @@ import com.repaskys.microblog.domain.Post;
  * @author Drew Repasky
  */
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
+	
+	// FIXME Query currently returns all messages ever posted & needs to be limited.
+	@Transactional(readOnly=true)
 	@Query("select p from Post p where p.blogUser.username in ?1 order by p.createdDate desc")
-	Page<List<Post>> findByUsernameIn(List<String> usernames, Pageable pageable);
+	List<Post> findByUsernameIn(List<String> usernames);
+	
+	@Transactional(readOnly=true)
+	@Query("select p from Post p where p.blogUser.username in ?1 order by p.createdDate desc")
+	Page<Post> findByUsernameIn(List<String> usernames, Pageable pageable);
+	
 }

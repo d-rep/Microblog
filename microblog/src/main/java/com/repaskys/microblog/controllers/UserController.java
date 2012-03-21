@@ -33,9 +33,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.repaskys.microblog.domain.BlogUser;
 import com.repaskys.microblog.domain.Post;
+import com.repaskys.microblog.dto.UserPostDto;
 import com.repaskys.microblog.services.UserService;
 
 /**
@@ -131,7 +133,7 @@ public class UserController {
 	public String showPostsFromFollowers(@RequestParam(defaultValue = "0") final String page, Map<String, Object> model, final Principal principal) {
 		logger.trace("executing inside UserController showPostsFromFollowers()");
 		String myUsername = principal.getName();
-		Page<List<Post>> posts = userService.getAllFollowersPostsForUser(myUsername, readPageNumber(page));
+		Page<Post> posts = userService.getAllFollowersPostsForUser(myUsername, readPageNumber(page));
 		model.put("posts", posts);
 		
 		if(! model.containsKey("post")) {
@@ -167,6 +169,17 @@ public class UserController {
 		return view;
 	}
 	
+	/**
+	 * Return all the follower's posts for the logged-in user, in JSON format.
+	 * 
+	 * FIXME: This view is not currently used anywhere, and will be called via AJAX.
+	 */
+	@RequestMapping(value = "/livePosts", method = RequestMethod.GET, produces="application/json")
+	public @ResponseBody List<UserPostDto> getPosts(final Principal principal) {
+		logger.trace("executing inside UserController getPosts()");
+		return userService.getFollowersPostsForUser(principal.getName());
+	}
+	
 	@RequestMapping(value = "/posts", method = RequestMethod.GET)
 	public String showPostsForOneUser(final String username, @RequestParam(defaultValue = "0") final String page, Map<String, Object> model) {
 		logger.trace("executing inside UserController showPostsForOneUser()");
@@ -174,7 +187,7 @@ public class UserController {
 		String view = "posts";
 		if(! StringUtils.isBlank(username)) {
 			if(userService.userExists(username)) {
-				Page<List<Post>> posts = userService.getAllPostsForUsers(Arrays.asList(username), readPageNumber(page));
+				Page<Post> posts = userService.getAllPostsForUsers(Arrays.asList(username), readPageNumber(page));
 				model.put("posts", posts);
 				model.put("username", username);
 			} else {
