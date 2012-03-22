@@ -14,6 +14,7 @@
 							<span class="age"><c:out value="${post.age}"/></span>
 						</div>
 						<div class="message"><c:out value="${post.message}"/></div>
+						<div class="retrievalDate"><c:out value="${post.retrievalDate.time}"/></div>
 					</td>
 				</tr>
 			</c:forEach>

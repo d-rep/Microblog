@@ -167,3 +167,8 @@ th {
 	width: 70%;
 	height: 50px;
 }
+
+.retrievalDate {
+	visibility: hidden;
+	position: absolute;
+}

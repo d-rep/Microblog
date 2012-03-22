@@ -73,6 +73,9 @@ public class Post {
 	
 	@Column(nullable = false)
 	private Date createdDate;
+	
+	@Transient
+	private Date retrievalDate = new Date();
 
 	public Long getId() {
 		return id;
@@ -119,6 +122,11 @@ public class Post {
 		Period period = new Period(created, now);
 		String age = PERIOD_FORMATTER.print(period.normalizedStandard());
 		return age;
+	}
+	
+	@Transient
+	public Date getRetrievalDate() {
+		return retrievalDate;
 	}
 
 	@Override

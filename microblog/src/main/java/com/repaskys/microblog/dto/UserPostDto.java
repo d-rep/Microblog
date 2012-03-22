@@ -18,19 +18,20 @@ package com.repaskys.microblog.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import com.repaskys.microblog.domain.BlogUser;
 import com.repaskys.microblog.domain.Post;
 
 /**
  * This is a Data Transfer Object (DTO / Value Object) meant to be a
- * detached/cloned copy of the BlogUser and Post entity classes.
+ * detached/cloned copy of the Post entity class.
  * 
  * FIXME This class is necessary unless Spring's MappingJacksonJsonView can
  * serialize lazy-loaded JPA Entities.
@@ -44,6 +45,8 @@ public class UserPostDto implements Serializable {
 	private String username;
 	private String message;
 	private String age;
+	private Date createdDate;
+	private Date retrievalDate;
 	
 	/**
 	 * Static factory method to create a list of UserPostDto instances from a List of Post objects.
@@ -61,6 +64,8 @@ public class UserPostDto implements Serializable {
 		username = post.getBlogUser().getUsername();
 		message = post.getMessage();
 		age = post.getAge();
+		createdDate = post.getCreatedDate();
+		retrievalDate = post.getRetrievalDate();
 	}
 	
 	public String getUsername() {
@@ -75,6 +80,14 @@ public class UserPostDto implements Serializable {
 
 	public String getAge() {
 		return age;
+	}
+	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public Date getRetrievalDate() {
+		return retrievalDate;
 	}
 
 	@Override

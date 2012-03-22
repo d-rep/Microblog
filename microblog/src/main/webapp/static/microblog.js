@@ -8,18 +8,26 @@ $(document).ready(function() {
 	});
 	
 	if($("#posts").length > 0) {
-		
-		var lastUpdate = $("#lastUpdate");
-		
-		if(lastUpdate.val().length === 0) {
-			lastUpdate.val((new Date()).getDateTimeString());
-		}
-		
-		postAutoUpdater();
+		retrievalDateUpdate();
+		setTimeout(postAutoUpdater, POST_REFRESH_RATE_IN_SECONDS * 1000);
 	}
 });
 
-function postAutoUpdater() {
+var retrievalDateUpdate = function() {
+	var lastUpdate = $("#lastUpdate");
+	
+	retrievalDateElements = $(".retrievalDate:first");
+	
+	if(retrievalDateElements.length > 0) {
+		millisString = retrievalDateElements.text();
+		millis = parseInt(millisString);
+		var retrievalDate = new Date(millis);
+		console.log(retrievalDate.getDateTimeString());
+		lastUpdate.val(retrievalDate.getDateTimeString());
+	}
+};
+
+var postAutoUpdater = function() {
 	var currentStamp = $("#lastUpdate").val();
 	$.ajax({
 		url: 'livePosts',
@@ -27,7 +35,7 @@ function postAutoUpdater() {
 		success: function(postsData) {
 
 			var element = $("#posts > tbody"),
-				className = $("#posts > tbody > tr").attr("class");
+				className = $("#posts > tbody > tr:first").attr("class");
 
 			jQuery.each(postsData, function(index, post) {
 	    		
@@ -41,6 +49,7 @@ function postAutoUpdater() {
 	    								'<span class="age">' + post.age + '</span>\n' +
 	    							'</div>\n' +
 	    							'<div class="message">' + post.message + '</div>\n' +
+	    							'<div class="retrievalDate">' + post.retrievalDate + '</div>'
 	    						'</td>\n' +
 	    					'</tr>\n';
 				element.prepend(template);
@@ -48,8 +57,7 @@ function postAutoUpdater() {
 			});
 	    },
 	    complete: function() {
-	    	var updateStamp = (new Date()).getDateTimeString();
-	    	$("#lastUpdate").val(updateStamp);
+	    	retrievalDateUpdate();
 	    	setTimeout(postAutoUpdater, POST_REFRESH_RATE_IN_SECONDS * 1000);
 	    }
 	});
