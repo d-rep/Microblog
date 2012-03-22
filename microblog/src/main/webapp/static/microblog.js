@@ -6,8 +6,12 @@ $(document).ready(function() {
 		id_result : "counter",
 		alertClass : "error"
 	});
-	
-	if($("#posts").length > 0) {
+
+	var queryString = window.location.search;
+	// if we're on a screen with posts and are on the front page, then do automatic updates
+	if($("#posts").length > 0 &&
+			(queryString.length === 0 || queryString === "?page=0")) {
+		
 		retrievalDateUpdate();
 		setTimeout(postAutoUpdater, POST_REFRESH_RATE_IN_SECONDS * 1000);
 	}
@@ -22,7 +26,6 @@ var retrievalDateUpdate = function() {
 		millisString = retrievalDateElements.text();
 		millis = parseInt(millisString);
 		var retrievalDate = new Date(millis);
-		console.log(retrievalDate.getDateTimeString());
 		lastUpdate.val(retrievalDate.getDateTimeString());
 	}
 };
