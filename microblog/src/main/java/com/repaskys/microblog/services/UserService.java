@@ -16,6 +16,7 @@
 
 package com.repaskys.microblog.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -33,7 +34,7 @@ public interface UserService {
 	String registerUser(String username, String plainTextPassword);
 	List<String> searchForUsers(String username);
 	String createPost(String username, Post post);
-	List<UserPostDto> getFollowersPostsForUser(String username);
+	List<UserPostDto> getFollowersPostsForUser(String username, Date createdAfter);
 	Page<Post> getAllPostsForUsers(List<String> usernames, int pageNumber);
 	Page<Post> getAllFollowersPostsForUser(String username, int pageNumber);
 	String addFollower(String targetUsername, String followerUsername);

@@ -16,6 +16,7 @@
 
 package com.repaskys.microblog.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -33,10 +34,9 @@ import com.repaskys.microblog.domain.Post;
  */
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 	
-	// FIXME Query currently returns all messages ever posted & needs to be limited.
 	@Transactional(readOnly=true)
-	@Query("select p from Post p where p.blogUser.username in ?1 order by p.createdDate desc")
-	List<Post> findByUsernameIn(List<String> usernames);
+	@Query("select p from Post p where p.blogUser.username in ?1 and p.createdDate > ?2 order by p.createdDate desc")
+	List<Post> findByUsernameIn(List<String> usernames, Date createdAfter);
 	
 	@Transactional(readOnly=true)
 	@Query("select p from Post p where p.blogUser.username in ?1 order by p.createdDate desc")

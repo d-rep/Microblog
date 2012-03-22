@@ -18,6 +18,7 @@ package com.repaskys.microblog.controllers;
 
 import java.security.Principal;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -175,9 +176,9 @@ public class UserController {
 	 * FIXME: This view is not currently used anywhere, and will be called via AJAX.
 	 */
 	@RequestMapping(value = "/livePosts", method = RequestMethod.GET, produces="application/json")
-	public @ResponseBody List<UserPostDto> getPosts(final Principal principal) {
+	public @ResponseBody List<UserPostDto> getPosts(final Date createdAfter, final Principal principal) {
 		logger.trace("executing inside UserController getPosts()");
-		return userService.getFollowersPostsForUser(principal.getName());
+		return userService.getFollowersPostsForUser(principal.getName(), createdAfter);
 	}
 	
 	@RequestMapping(value = "/posts", method = RequestMethod.GET)

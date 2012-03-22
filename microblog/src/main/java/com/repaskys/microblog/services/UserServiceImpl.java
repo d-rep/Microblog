@@ -151,14 +151,14 @@ public class UserServiceImpl implements UserService {
 		return errorMessage;
 	}
 	
-	public List<UserPostDto> getFollowersPostsForUser(String username) {
+	public List<UserPostDto> getFollowersPostsForUser(String username, Date createdAfter) {
 		List<String> following = getFollowingList(username);
 		// get posts for yourself as well
 		following.add(username);
 		
 		List<Post> posts = null;
 		try {
-			posts = postRepository.findByUsernameIn(following);
+			posts = postRepository.findByUsernameIn(following, createdAfter);
 		} catch(RuntimeException ex) {
 			logger.error("RuntimeException when getting posts for these users: " + StringUtils.join(following, ", ") + ".", ex);
 		}
