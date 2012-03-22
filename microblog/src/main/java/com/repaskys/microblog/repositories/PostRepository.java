@@ -35,7 +35,7 @@ import com.repaskys.microblog.domain.Post;
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
 	
 	@Transactional(readOnly=true)
-	@Query("select p from Post p where p.blogUser.username in ?1 and p.createdDate > ?2 order by p.createdDate desc")
+	@Query("select p from Post p where p.blogUser.username in ?1 and p.createdDate > ?2 order by p.createdDate asc")
 	List<Post> findByUsernameIn(List<String> usernames, Date createdAfter);
 	
 	@Transactional(readOnly=true)

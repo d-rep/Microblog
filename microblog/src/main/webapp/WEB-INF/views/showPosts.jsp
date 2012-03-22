@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 
         <form method="GET" action="posts">
-        	Username: <input type="text" name="username"/><br/>
+        	Username: <input type="text" id="username" name="username"/><br/>
         	<input type="submit" value="Show Posts"/>
         </form>
         

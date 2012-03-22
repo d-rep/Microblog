@@ -6,6 +6,7 @@
 	        <script type="text/javascript" src="static/jquery-1.7.1.min.js"></script>
 	        <script type="text/javascript" src="static/jquery.limit.js"></script>
 	        <script type="text/javascript" src="static/microblog.js"></script>
+	        <script type="text/javascript" src="static/datetime.js"></script>
 			<!--[if lt IE 9]>
 			<script src="static/html5.js"></script>
 			<![endif]-->

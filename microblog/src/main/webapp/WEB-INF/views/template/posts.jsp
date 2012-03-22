@@ -3,6 +3,7 @@
 
 		<c:choose>
 		<c:when test="${not empty posts && not empty posts.content}">
+		<input type="hidden" id="lastUpdate"/>
 		<table id="posts">
 			<tbody>
 			<c:forEach var="post" items="${posts.content}" varStatus="loopStatus">
