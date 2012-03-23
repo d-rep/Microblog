@@ -236,10 +236,6 @@ public class UserControllerTest {
 	@Test
 	public void showPostsFromFollowers() {
 		final Page<Post> pagesOfPosts = getPagesOfPosts();
-		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("posts", pagesOfPosts);
-			put("post", new Post());
-		}};
 		
 		Principal mockPrincipal = getMockSecurityPrincipal();
 		
@@ -250,7 +246,7 @@ public class UserControllerTest {
 		String view = userController.showPostsFromFollowers("1", model, mockPrincipal);
 		
 		assertEquals("createPost", view);
-		assertEquals(expectedModel, model);
+		assertEquals(pagesOfPosts, model.get("posts"));
 		
 		verify(mockUserService).getAllFollowersPostsForUser(USERNAME, 1);
 		verify(mockPrincipal).getName();
