@@ -23,10 +23,8 @@ var retrievalDateUpdate = function() {
 	retrievalDateElements = $(".retrievalDate:first");
 	
 	if(retrievalDateElements.length > 0) {
-		millisString = retrievalDateElements.text();
-		millis = parseInt(millisString);
-		var retrievalDate = new Date(millis);
-		lastUpdate.val(retrievalDate.getDateTimeString());
+		millis = retrievalDateElements.text();
+		lastUpdate.val(millis);
 	}
 };
 

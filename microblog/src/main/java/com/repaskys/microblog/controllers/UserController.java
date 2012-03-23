@@ -176,9 +176,12 @@ public class UserController {
 	 * FIXME: This view is not currently used anywhere, and will be called via AJAX.
 	 */
 	@RequestMapping(value = "/livePosts", method = RequestMethod.GET, produces="application/json")
-	public @ResponseBody List<UserPostDto> getPosts(final Date createdAfter, final Principal principal) {
+	public @ResponseBody List<UserPostDto> getPosts(final Long createdAfter, final Principal principal) {
 		logger.trace("executing inside UserController getPosts()");
-		return userService.getFollowersPostsForUser(principal.getName(), createdAfter);
+		logger.debug("milliseconds: " + createdAfter);
+		Date createdAfterDate = new Date(createdAfter);
+		logger.debug("date: " + createdAfterDate);
+		return userService.getFollowersPostsForUser(principal.getName(), createdAfterDate);
 	}
 	
 	@RequestMapping(value = "/posts", method = RequestMethod.GET)
