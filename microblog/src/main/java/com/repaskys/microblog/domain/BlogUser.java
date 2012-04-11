@@ -51,7 +51,8 @@ public class BlogUser implements Serializable {
 	@Pattern(regexp = "[a-zA-Z]*", message="Username must be all letters")
 	private String username;
 	
-	@Size(min = 1, max=20, message="Password {javax.validation.constraints.Size.message}")
+	// the max size is for the encrypted password, which is always 80 characters
+	@Size(min = 1, max=80, message="Password {javax.validation.constraints.Size.message}")
 	@Column(nullable = false)
 	private String password;
 	
