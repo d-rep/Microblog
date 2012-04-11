@@ -34,7 +34,7 @@
 			</table>
 		</form>
 		
-		<c:if test="${not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
+		<c:if test="${empty message && not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
 		<div class="error">
 			Your login attempt was not successful, please try again.  
 			<c:out value="${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}"/>

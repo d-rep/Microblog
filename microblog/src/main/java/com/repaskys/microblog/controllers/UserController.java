@@ -172,8 +172,6 @@ public class UserController {
 	
 	/**
 	 * Return all the follower's posts for the logged-in user, in JSON format.
-	 * 
-	 * FIXME: This view is not currently used anywhere, and will be called via AJAX.
 	 */
 	@RequestMapping(value = "/livePosts", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody List<UserPostDto> getPosts(final Long createdAfter, final Principal principal) {
