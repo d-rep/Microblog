@@ -2,7 +2,7 @@ Microblog
 =========
 This is a simple Microblogging web application.  Any resemblance to existing internet services is coincidental.
 
-This project uses [Spring MVC], [Spring Data JPA], [Spring Security], and [Apache Tiles].  It is setup to be edited using [SpringSource Tool Suite].
+This project uses [Spring MVC], [Spring Data JPA], [Spring Security], and [Apache Tiles].
 
 Copyright &copy; 2012-, [Drew Repasky].  Licensed under [Apache License, Version 2.0].
 
@@ -30,9 +30,17 @@ First, download the latest and greatest source code:
 Build and run the code with the following commands:
 
     cd Microblog/microblog
-    mvn clean package
+    mvn clean install
     mvn tomcat6:run
 
+Editing
+=======
+This project does not require an IDE, but is setup to be edited using an [Eclipse]-based editor like [SpringSource Tool Suite].  You should also install the m2eclipse plugin from Eclipse Marketplace.
+
+1. Create a new workspace
+2. click File -> Import -> General -> Existing Projects into Workspace
+3. For the root directory, select the microblog directory from the git repository you cloned locally.
+4. click Finish
 
 [Drew Repasky]: http://twitter.com/drewrepasky
 [Apache License, Version 2.0]: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -43,5 +51,6 @@ Build and run the code with the following commands:
 [Spring Data JPA]: http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/
 [Spring Security]: http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity.html
 [Apache Tiles]: http://tiles.apache.org/2.2/framework/tutorial/index.html
+[Eclipse]: http://www.eclipse.org/downloads/
 [SpringSource Tool Suite]: http://www.springsource.com/downloads/sts
 
