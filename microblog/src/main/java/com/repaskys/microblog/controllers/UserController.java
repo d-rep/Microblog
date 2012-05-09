@@ -50,6 +50,7 @@ import com.repaskys.microblog.services.UserService;
 @Controller
 public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	private static final String ERROR_MESSAGE = "errorMessage";
 	
 	@Autowired
 	private UserService userService;
@@ -111,7 +112,7 @@ public class UserController {
 			String password = blogUser.getPassword();
 			if(userService.userExists(username)) {
 				view = "invalid";
-				model.put("errorMessage", "Could not register the username \"" + username + "\" because it has already been taken by another user.");
+				model.put(ERROR_MESSAGE, "Could not register the username \"" + username + "\" because it has already been taken by another user.");
 			} else {
 				String errorMessage = userService.registerUser(username, password);
 				if(StringUtils.isBlank(errorMessage)) {
@@ -119,7 +120,7 @@ public class UserController {
 					model.put("message", "Thank you for registering, " + username + ".  You can now login using your new account.");
 				} else {
 					view = "error";
-					model.put("errorMessage", errorMessage);
+					model.put(ERROR_MESSAGE, errorMessage);
 				}
 			}
 		} else {
@@ -157,7 +158,7 @@ public class UserController {
 				model.put("message", "Post created successfully");
 				view = "createPost";
 			} else {
-				model.put("errorMessage", errorMessage);
+				model.put(ERROR_MESSAGE, errorMessage);
 				view = "error";
 			}
 		} else {
@@ -174,7 +175,8 @@ public class UserController {
 	 * Return all the follower's posts for the logged-in user, in JSON format.
 	 */
 	@RequestMapping(value = "/livePosts", method = RequestMethod.GET, produces="application/json")
-	public @ResponseBody List<UserPostDto> getPosts(final Long createdAfter, final Principal principal) {
+	@ResponseBody
+	public List<UserPostDto> getPosts(final Long createdAfter, final Principal principal) {
 		logger.trace("executing inside UserController getPosts()");
 		logger.debug("milliseconds: " + createdAfter);
 		Date createdAfterDate = new Date(createdAfter);
@@ -193,7 +195,7 @@ public class UserController {
 				model.put("posts", posts);
 				model.put("username", username);
 			} else {
-				model.put("errorMessage", "The username \"" + username + "\" does not exist.");
+				model.put(ERROR_MESSAGE, "The username \"" + username + "\" does not exist.");
 				view = "invalid";
 			}
 		}

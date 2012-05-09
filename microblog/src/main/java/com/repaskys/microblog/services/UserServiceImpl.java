@@ -71,18 +71,18 @@ public class UserServiceImpl implements UserService {
 	private FollowerRepository followerRepository;
 	
 	// These are the same for every user we create
-	private static final boolean enabled = true;
-	private static final boolean accountNonExpired = true;
-	private static final boolean credentialsNonExpired = true;
-	private static final boolean accountNonLocked = true;
-	private static final List<SimpleGrantedAuthority> authorities = Arrays.asList(new SimpleGrantedAuthority("user"));
+	private static final boolean ENABLED = true;
+	private static final boolean ACCOUNT_NOT_EXPIRED = true;
+	private static final boolean CREDENTIALS_NOT_EXPIRED = true;
+	private static final boolean ACCOUNT_NOT_LOCKED = true;
+	private static final List<SimpleGrantedAuthority> AUTHORITIES = Arrays.asList(new SimpleGrantedAuthority("user"));
 	
 	/**
 	 * Hash the plain text password and create a new UserDetails instance that can be persisted.
 	 */
 	private UserDetails initializeUser(String username, String plainTextPassword) {
 		String password = passwordEncoder.encode(plainTextPassword);
-		return new User(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+		return new User(username, password, ENABLED, ACCOUNT_NOT_EXPIRED, CREDENTIALS_NOT_EXPIRED, ACCOUNT_NOT_LOCKED, AUTHORITIES);
 	}
 	
 	public boolean userExists(String username) {

@@ -39,6 +39,7 @@ import com.repaskys.microblog.services.UserService;
 @Controller
 public class FollowController {
 	private static final Logger logger = LoggerFactory.getLogger(FollowController.class);
+	private static final String ERROR_MESSAGE = "errorMessage"; 
 	
 	@Autowired
 	private UserService userService;
@@ -57,14 +58,14 @@ public class FollowController {
 		String view = "invalid";
 		String action = followAction.getMessage();
 		if(StringUtils.isBlank(targetUsername)) {
-			model.put("errorMessage", "Please specify a username to " + action);
+			model.put(ERROR_MESSAGE, "Please specify a username to " + action);
 		} else {
 			
 			if(userService.userExists(targetUsername)) {
 				String myUsername = principal.getName();
 				
 				if(myUsername.equalsIgnoreCase(targetUsername)) {
-					model.put("errorMessage", "You cannot " + action + " yourself.");
+					model.put(ERROR_MESSAGE, "You cannot " + action + " yourself.");
 					view = "invalid";
 				} else {
 					String message = "You have successfully " + action + "ed user " + targetUsername + ".";
@@ -83,11 +84,11 @@ public class FollowController {
 						
 						view = follow(model, principal);
 					} else {
-						model.put("errorMessage", errorMessage);
+						model.put(ERROR_MESSAGE, errorMessage);
 					}
 				}
 			} else {
-				model.put("errorMessage", "The user you are trying to " + action + " (\"" + targetUsername + "\") does not exist.");
+				model.put(ERROR_MESSAGE, "The user you are trying to " + action + " (\"" + targetUsername + "\") does not exist.");
 				view = "invalid";
 			}
 		}

@@ -34,7 +34,7 @@ public class BlogAuthority implements Serializable {
 	private static final long serialVersionUID = 3156968893620763630L;
 	
 	@Id
-	AuthorityKey authorityKey;
+	private AuthorityKey authorityKey;
 
 	public AuthorityKey getAuthorityKey() {
 		return authorityKey;

@@ -45,14 +45,17 @@ import org.apache.commons.lang.builder.ToStringStyle;
 @Table(name="users", uniqueConstraints=@UniqueConstraint(columnNames="username"))
 public class BlogUser implements Serializable {
 	private static final long serialVersionUID = 7342832593953711366L;
+	
+	private static final int MAX_USERNAME_SIZE = 20;
+	private static final int ENCRYPTED_PASSWORD_SIZE = 80;
 
 	@Id
-	@Size(min = 1, max=20, message="Username {javax.validation.constraints.Size.message}")
+	@Size(min = 1, max=MAX_USERNAME_SIZE, message="Username {javax.validation.constraints.Size.message}")
 	@Pattern(regexp = "[a-zA-Z]*", message="Username must be all letters")
 	private String username;
 	
 	// the max size is for the encrypted password, which is always 80 characters
-	@Size(min = 1, max=80, message="Password {javax.validation.constraints.Size.message}")
+	@Size(min = 1, max=ENCRYPTED_PASSWORD_SIZE, message="Password {javax.validation.constraints.Size.message}")
 	@Column(nullable = false)
 	private String password;
 	

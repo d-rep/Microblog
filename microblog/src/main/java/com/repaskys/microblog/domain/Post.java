@@ -47,6 +47,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 public class Post {
 	
+	private static final int MAX_MESSAGE_SIZE = 500;
+	
 	private static final PeriodFormatter PERIOD_FORMATTER = new PeriodFormatterBuilder()
 	    .appendDays()
 	    .appendSuffix("d")
@@ -67,8 +69,8 @@ public class Post {
 	@JoinColumn(name = "username")
 	private BlogUser blogUser;
 	
-	@Size(min=1, max = 500, message="Post {javax.validation.constraints.Size.message}")
-	@Column(nullable = false, length = 500)
+	@Size(min=1, max = MAX_MESSAGE_SIZE, message="Post {javax.validation.constraints.Size.message}")
+	@Column(nullable = false, length = MAX_MESSAGE_SIZE)
 	private String message;
 	
 	@Column(nullable = false)
@@ -120,8 +122,7 @@ public class Post {
 		DateTime created = new DateTime(this.createdDate);
 		
 		Period period = new Period(created, now);
-		String age = PERIOD_FORMATTER.print(period.normalizedStandard());
-		return age;
+		return PERIOD_FORMATTER.print(period.normalizedStandard());
 	}
 	
 	@Transient
