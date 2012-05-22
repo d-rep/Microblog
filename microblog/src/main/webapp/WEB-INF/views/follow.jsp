@@ -15,8 +15,8 @@
         		</tr>
         	</thead>
 			<tbody>
-				<c:forEach var="follow" items="${following}" varStatus="loopStatus">
-				<tr class="${loopStatus.index % 2 == 0 ? 'odd' : 'even'}">
+				<c:forEach var="follow" items="${following}">
+				<tr>
 					<td><c:out value="${follow}"/></td>
 					<td>
 				        <form method="POST" action="unfollow">

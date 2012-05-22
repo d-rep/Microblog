@@ -6,8 +6,8 @@
 		<input type="hidden" id="lastUpdate"/>
 		<table id="posts">
 			<tbody>
-			<c:forEach var="post" items="${posts.content}" varStatus="loopStatus">
-				<tr class="${loopStatus.index % 2 == 0 ? 'odd' : 'even'}">
+			<c:forEach var="post" items="${posts.content}">
+				<tr>
 					<td class="postCell" title="posted on <spring:eval expression="post.createdDate" />">
 						<div class="postHeader">
 							<span class="username"><c:out value="${post.blogUser.username}"/>:</span>

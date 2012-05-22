@@ -17,9 +17,9 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="user" items="${users}" varStatus="loopStatus">
+			<c:forEach var="user" items="${users}">
 
-				<tr class="${loopStatus.index % 2 == 0 ? 'odd' : 'even'}">
+				<tr>
 					<td>
 						<c:out value="${user}"/>
 					</td>

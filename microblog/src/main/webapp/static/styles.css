@@ -115,12 +115,12 @@ th {
 	margin-right: auto;
 }
 
-.odd {
+tbody tr:nth-child(odd) {
 	background-color: #cccccc;
 }
 
-.even {
-	
+tbody tr:nth-child(even) {
+	background-color: #ffffff;
 }
 
 .postCell {

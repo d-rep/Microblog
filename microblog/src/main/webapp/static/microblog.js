@@ -35,15 +35,12 @@ var postAutoUpdater = function() {
 		data: "createdAfter=" + currentStamp,
 		success: function(postsData) {
 
-			var element = $("#posts > tbody"),
-				className = $("#posts > tbody > tr:first").attr("class");
+			var element = $("#posts > tbody");
 
 			jQuery.each(postsData, function(index, post) {
 	    		
-				className = (className === "even") ? "odd" : "even";
-	    		
 				var template = '' +
-	    	    			'<tr class="' + className + '">\n' +
+	    	    			'<tr>\n' +
 	    						'<td class="postCell">\n' +
 	    							'<div class="postHeader">\n' +
 	    								'<span class="username">' + post.username + '</span>\n' +
