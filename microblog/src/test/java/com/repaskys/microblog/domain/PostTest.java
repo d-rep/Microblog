@@ -24,7 +24,6 @@ import org.junit.Test;
  */
 public class PostTest {
 	
-	private static final DateTime JULY_FIRST = new DateTime(2012, 7, 1, 12, 0, 0, 0);
 	private static Validator validator;
 	private Post post;
 	private ConstraintViolation<Post> violation;
@@ -90,31 +89,51 @@ public class PostTest {
 		assertEquals("message", violation.getPropertyPath().toString());
 	}
 	
-	@Test
-	public void calculateAgeEighteenMinuteAgo() {
-		DateTime timeAgo = JULY_FIRST.minus(Period.minutes(18));
-		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+	private void calculateAgeEighteenMinuteAgo(DateTime dateTime) {
+		DateTime timeAgo = dateTime.minus(Period.minutes(18));
+		String age = Post.getAge(dateTime.toDate(), timeAgo.toDate());
 		assertEquals("18m", age);
 	}
 	
-	@Test
-	public void calculateAgeOneDayAgo() {
-		DateTime timeAgo = JULY_FIRST.minus(Period.days(1));
-		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+	private void calculateAgeOneDayAgo(DateTime dateTime) {
+		DateTime timeAgo = dateTime.minus(Period.days(1));
+		String age = Post.getAge(dateTime.toDate(), timeAgo.toDate());
 		assertEquals("1d 0m", age);
 	}
 	
-	@Test
-	public void calculateAgeFiveDaysFortyThreeMinutesAgo() {
-		DateTime timeAgo = JULY_FIRST.minus(Period.days(5)).minus(Period.minutes(43));
-		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+	private void calculateAgeSixHoursThirteenMinutesAgo(DateTime dateTime) {
+		DateTime timeAgo = dateTime.minus(Period.hours(6)).minus(Period.minutes(13));
+		String age = Post.getAge(dateTime.toDate(), timeAgo.toDate());
+		assertEquals("6h 13m", age);
+	}
+	
+	private void calculateAgeFiveDaysFortyThreeMinutesAgo(DateTime dateTime) {
+		DateTime timeAgo = dateTime.minus(Period.days(5)).minus(Period.minutes(43));
+		String age = Post.getAge(dateTime.toDate(), timeAgo.toDate());
 		assertEquals("5d 43m", age);
 	}
 	
-	@Test
-	public void calculateAgeOneWeekAgo() {
-		DateTime timeAgo = JULY_FIRST.minus(Period.weeks(1));
-		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+	private void calculateAgeOneWeekAgo(DateTime dateTime) {
+		DateTime timeAgo = dateTime.minus(Period.weeks(1));
+		String age = Post.getAge(dateTime.toDate(), timeAgo.toDate());
 		assertEquals("a long while ago", age);
+	}
+	
+	private void testDifferentPostAges(DateTime dateTime) {
+		calculateAgeEighteenMinuteAgo(dateTime);
+		calculateAgeOneDayAgo(dateTime);
+		calculateAgeSixHoursThirteenMinutesAgo(dateTime);
+		calculateAgeFiveDaysFortyThreeMinutesAgo(dateTime);
+		calculateAgeOneWeekAgo(dateTime);
+	}
+	
+	@Test
+	public void testJulyFirst2012() {
+		testDifferentPostAges(new DateTime(2012, 7, 1, 12, 0, 0, 0));
+	}
+	
+	@Test
+	public void testOctoberFourth2010() {
+		testDifferentPostAges(new DateTime(2010, 10, 4, 12, 0, 0, 0));
 	}
 }
