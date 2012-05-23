@@ -10,6 +10,8 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 
 import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -21,6 +23,8 @@ import org.junit.Test;
  * @author Drew Repasky
  */
 public class PostTest {
+	
+	private static final DateTime JULY_FIRST = new DateTime(2012, 7, 1, 12, 0, 0, 0);
 	private static Validator validator;
 	private Post post;
 	private ConstraintViolation<Post> violation;
@@ -86,4 +90,31 @@ public class PostTest {
 		assertEquals("message", violation.getPropertyPath().toString());
 	}
 	
+	@Test
+	public void calculateAgeEighteenMinuteAgo() {
+		DateTime timeAgo = JULY_FIRST.minus(Period.minutes(18));
+		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+		assertEquals("18m", age);
+	}
+	
+	@Test
+	public void calculateAgeOneDayAgo() {
+		DateTime timeAgo = JULY_FIRST.minus(Period.days(1));
+		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+		assertEquals("1d 0m", age);
+	}
+	
+	@Test
+	public void calculateAgeFiveDaysFortyThreeMinutesAgo() {
+		DateTime timeAgo = JULY_FIRST.minus(Period.days(5)).minus(Period.minutes(43));
+		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+		assertEquals("5d 43m", age);
+	}
+	
+	@Test
+	public void calculateAgeOneWeekAgo() {
+		DateTime timeAgo = JULY_FIRST.minus(Period.weeks(1));
+		String age = Post.getAge(JULY_FIRST.toDate(), timeAgo.toDate());
+		assertEquals("a long while ago", age);
+	}
 }

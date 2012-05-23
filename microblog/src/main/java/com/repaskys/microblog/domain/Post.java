@@ -78,6 +78,23 @@ public class Post {
 	
 	@Transient
 	private Date retrievalDate = new Date();
+	
+	protected static String getAge(final Date fromDate, final Date createdDate) {
+		DateTime now = new DateTime(fromDate);
+		DateTime created = new DateTime(createdDate);
+		
+		Period period = new Period(created, now);
+		String age = "";
+		
+		int weeksAgo = period.getWeeks();
+		if(weeksAgo == 0) {
+			age = PERIOD_FORMATTER.print(period.normalizedStandard());
+		} else {
+			age = "a long while ago";
+		}
+		
+		return age;
+	}
 
 	public Long getId() {
 		return id;
@@ -118,20 +135,7 @@ public class Post {
 	 */
 	@Transient
 	public String getAge() {
-		DateTime now = new DateTime(new Date());
-		DateTime created = new DateTime(this.createdDate);
-		
-		Period period = new Period(created, now);
-		String age = "";
-		
-		int weeksAgo = period.getWeeks();
-		if(weeksAgo == 0) {
-			age = PERIOD_FORMATTER.print(period.normalizedStandard());
-		} else {
-			age = "a long while back";
-		}
-		
-		return age;
+		return Post.getAge(new Date(), this.createdDate);
 	}
 	
 	@Transient
