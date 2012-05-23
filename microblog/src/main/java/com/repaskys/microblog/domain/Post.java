@@ -122,7 +122,16 @@ public class Post {
 		DateTime created = new DateTime(this.createdDate);
 		
 		Period period = new Period(created, now);
-		return PERIOD_FORMATTER.print(period.normalizedStandard());
+		String age = "";
+		
+		int weeksAgo = period.getWeeks();
+		if(weeksAgo == 0) {
+			age = PERIOD_FORMATTER.print(period.normalizedStandard());
+		} else {
+			age = "a long while back";
+		}
+		
+		return age;
 	}
 	
 	@Transient
