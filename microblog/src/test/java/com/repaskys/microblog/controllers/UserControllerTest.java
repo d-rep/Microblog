@@ -48,6 +48,7 @@ public class UserControllerTest {
 	private static final String USERNAME = "drew";
 	private static final String PASSWORD = "password";
 	private static final BlogUser BLOG_USER = new BlogUser();
+	private static final Page<Post> PAGES_OF_POSTS = getPagesOfPosts();
 	
 	private UserController userController;
 	private Map<String, Object> model;
@@ -80,9 +81,12 @@ public class UserControllerTest {
 		final Post post = new Post();
 		post.setMessage("some post message");
 		
-		List<Post> posts = new ArrayList<Post>() {{
-			add(post);
-		}};
+		List<Post> posts = new ArrayList<Post>() {
+			private static final long serialVersionUID = -4134372530010086050L;
+			{
+				add(post);
+			}
+		};
 		
 		Page<Post> pagesOfPosts = new PageImpl<Post>(posts);
 		
@@ -137,9 +141,12 @@ public class UserControllerTest {
 	
 	@Test
 	public void registerView() {
-		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("blogUser", new BlogUser());
-		}};
+		Map<String, Object> expectedModel = new HashMap<String, Object>() {
+			private static final long serialVersionUID = 3092671673205024495L;
+			{
+				put("blogUser", new BlogUser());
+			}
+		};
 		String view = userController.register(model);
 		assertEquals("register", view);
 		assertEquals(expectedModel, model);
@@ -161,9 +168,12 @@ public class UserControllerTest {
 	 */
 	@Test
 	public void invalidUserShouldReshowTheRegistrationView() {
-		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("blogUser", BLOG_USER);
-		}};
+		Map<String, Object> expectedModel = new HashMap<String, Object>() {
+			private static final long serialVersionUID = -8269327640609434733L;
+			{
+				put("blogUser", BLOG_USER);
+			}
+		};
 		
 		BindingResult mockBindingResult = getMockBindingResultWithError();
 		String view = userController.createUser(BLOG_USER, mockBindingResult, model);
@@ -175,9 +185,15 @@ public class UserControllerTest {
 	
 	@Test
 	public void duplicateUsernameShouldBeInvalid() {
-		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("errorMessage", "Could not register the username \"" + USERNAME + "\" because it has already been taken by another user.");
-		}};
+		Map<String, Object> expectedModel = new HashMap<String, Object>() {
+			private static final long serialVersionUID = -1303253438269523205L;
+			{
+				put("errorMessage",
+						"Could not register the username \""
+								+ USERNAME
+								+ "\" because it has already been taken by another user.");
+			}
+		};
 		UserService mockUserService = mock(UserService.class);
 		when(mockUserService.userExists(USERNAME)).thenReturn(true);
 		
@@ -192,9 +208,13 @@ public class UserControllerTest {
 	
 	@Test
 	public void uniqueUsernameShouldBeValid() {
-		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("message", "Thank you for registering, " + USERNAME + ".  You can now login using your new account.");
-		}};
+		Map<String, Object> expectedModel = new HashMap<String, Object>() {
+			private static final long serialVersionUID = -5611158657577664691L;
+			{
+				put("message", "Thank you for registering, " + USERNAME
+						+ ".  You can now login using your new account.");
+			}
+		};
 		UserService mockUserService = mock(UserService.class);
 		when(mockUserService.userExists(USERNAME)).thenReturn(false);
 		// no error messages returned
@@ -215,9 +235,12 @@ public class UserControllerTest {
 	@Test
 	public void createUserErrorIsReported() {
 		final String errorMessage = "something went wrong during the registration";
-		Map<String, Object> expectedModel = new HashMap<String, Object>() {{
-			put("errorMessage", errorMessage);
-		}};
+		Map<String, Object> expectedModel = new HashMap<String, Object>() {
+			private static final long serialVersionUID = 6556930748518665075L;
+			{
+				put("errorMessage", errorMessage);
+			}
+		};
 		UserService mockUserService = mock(UserService.class);
 		when(mockUserService.userExists(USERNAME)).thenReturn(false);
 		when(mockUserService.registerUser(USERNAME, PASSWORD)).thenReturn(errorMessage);
@@ -235,22 +258,40 @@ public class UserControllerTest {
 	
 	@Test
 	public void showPostsFromFollowers() {
-		final Page<Post> pagesOfPosts = getPagesOfPosts();
-		
 		Principal mockPrincipal = getMockSecurityPrincipal();
 		
 		UserService mockUserService = mock(UserService.class);
-		when(mockUserService.getAllFollowersPostsForUser(USERNAME, 1)).thenReturn(pagesOfPosts);
+		when(mockUserService.getAllFollowersPostsForUser(USERNAME, 1)).thenReturn(PAGES_OF_POSTS);
 		userController.setUserService(mockUserService);
 		
 		String view = userController.showPostsFromFollowers("1", model, mockPrincipal);
 		
 		assertEquals("createPost", view);
-		assertEquals(pagesOfPosts, model.get("posts"));
+		assertEquals(PAGES_OF_POSTS, model.get("posts"));
 		
 		verify(mockUserService).getAllFollowersPostsForUser(USERNAME, 1);
 		verify(mockPrincipal).getName();
 		
+	}
+	
+	@Test
+	public void testDoMessagePostWithBindingResultErrors() {
+		Principal mockPrincipal = getMockSecurityPrincipal();
+		
+		UserService mockUserService = mock(UserService.class);
+		when(mockUserService.getAllFollowersPostsForUser(USERNAME, 1)).thenReturn(PAGES_OF_POSTS);
+		userController.setUserService(mockUserService);
+		
+		Post post = null;
+		BindingResult mockBindingResult = getMockBindingResultWithError();
+		String view = userController.doMessagePost(post, mockBindingResult, "1", model, mockPrincipal);
+		
+		// even with a BindingResult error, we still view the same screen and still get posts
+		assertEquals("createPost", view);
+		assertEquals(PAGES_OF_POSTS, model.get("posts"));
+		
+		verify(mockUserService).getAllFollowersPostsForUser(USERNAME, 1);
+		verify(mockBindingResult).hasErrors();
 	}
 
 }
