@@ -4,7 +4,7 @@ This is a simple Microblogging web application.  Any resemblance to existing int
 
 This project uses [Spring MVC], [Spring Data JPA], [Spring Security], and [Apache Tiles].
 
-Copyright &copy; 2012-, [Drew Repasky].  Licensed under [Apache License, Version 2.0].
+Copyright &copy; 2014-, Drew Repasky.  Licensed under [Apache License, Version 2.0].
 
 
 Prerequisites
@@ -16,7 +16,7 @@ Database Setup
 --------------
 This webapp requires a database, so setup one and add the following JNDI entry to your servlet container: `jdbc/microblog`
 
-Add your database settings like username & password to this file if using Tomcat: `src/main/webapp/META-INF/context.xml`
+Add your database settings like username & password to this file if using Tomcat: `src/main/webapp/META-INF/context.xml` and the schema will be created when the application starts.
 
 The app includes database drivers for [MySQL] 5 and uses that dialect by default.
 
@@ -33,6 +33,9 @@ Build and run the code with the following commands:
     mvn clean install
     mvn tomcat6:run
 
+
+Then open your browser to this address: [http://localhost:8080/microblog/](http://localhost:8080/microblog/)
+
 Editing
 =======
 This project does not require an IDE, but is setup to be edited using an [Eclipse]-based editor like [SpringSource Tool Suite].  You should also install the m2eclipse plugin from Eclipse Marketplace.
@@ -42,7 +45,6 @@ This project does not require an IDE, but is setup to be edited using an [Eclips
 3. For the root directory, select the microblog directory from the git repository you cloned locally.
 4. click Finish
 
-[Drew Repasky]: http://twitter.com/drewrepasky
 [Apache License, Version 2.0]: http://www.apache.org/licenses/LICENSE-2.0.html
 [Java Development Kit]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [Apache Maven]: http://maven.apache.org/download.html

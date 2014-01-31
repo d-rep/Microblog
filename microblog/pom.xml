@@ -4,13 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.repaskys</groupId>
 	<artifactId>microblog</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<jdk.version>1.6</jdk.version>
-		<!-- Latest version of Spring is 3.1.1.RELEASE, but this is the latest Spring Security version in Maven Central. -->
-		<spring.version>3.1.0.RELEASE</spring.version>
+		<spring.version>4.0.1.RELEASE</spring.version>
+		<spring.security.version>3.2.0.RELEASE</spring.security.version>
+		<spring.data.version>1.4.3.RELEASE</spring.data.version>
 		<hibernate.version>4.0.1.Final</hibernate.version>
 	</properties>
 	<build>
@@ -64,24 +65,24 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring.security.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring.security.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring.security.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-taglibs</artifactId>
-			<version>${spring.version}</version>
+			<version>${spring.security.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 		<!-- Persistence -->
@@ -99,7 +100,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			<version>1.0.3.RELEASE</version>
+			<version>${spring.data.version}</version>
 		</dependency>
 		<!-- bundle in a database driver -->
 		<dependency>
@@ -189,7 +190,7 @@
 	<developers>
 		<developer>
 			<name>Drew Repasky</name>
-			<email>drew@repaskys.com</email>
+			<email>drew@repasky.us</email>
 		</developer>
 	</developers>
 </project>
