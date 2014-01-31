@@ -49,9 +49,9 @@ This project does not require an IDE, but is setup to be edited using an [Eclips
 [Java Development Kit]: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 [Apache Maven]: http://maven.apache.org/download.html
 [MySQL]: http://dev.mysql.com/downloads/
-[Spring MVC]: http://static.springsource.org/spring/docs/3.1.x/spring-framework-reference/html/mvc.html
-[Spring Data JPA]: http://static.springsource.org/spring-data/data-jpa/docs/current/reference/html/
-[Spring Security]: http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity.html
+[Spring MVC]: http://docs.spring.io/spring/docs/4.0.1.RELEASE/spring-framework-reference/htmlsingle/#mvc
+[Spring Data JPA]: http://docs.spring.io/spring-data/jpa/docs/1.4.3.RELEASE/reference/html/
+[Spring Security]: http://docs.spring.io/spring-security/site/docs/3.2.0.RELEASE/reference/htmlsingle/
 [Apache Tiles]: http://tiles.apache.org/2.2/framework/tutorial/index.html
 [Eclipse]: http://www.eclipse.org/downloads/
 [SpringSource Tool Suite]: http://www.springsource.com/downloads/sts
