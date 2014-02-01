@@ -29,7 +29,7 @@ First, download the latest and greatest source code:
 
 Build and run the code with the following commands:
 
-    cd Microblog/microblog
+    cd Microblog
     mvn clean install
     mvn tomcat6:run
 
