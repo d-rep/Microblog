@@ -1,4 +1,4 @@
-Microblog
+Microblog [![Build Status](https://travis-ci.org/d-rep/Microblog.png?branch=master)](https://travis-ci.org/d-rep/Microblog)
 =========
 This is a simple Microblogging web application.  Any resemblance to existing internet services is coincidental.
 
