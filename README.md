@@ -31,7 +31,7 @@ Build and run the code with the following commands:
 
     cd Microblog
     mvn clean install
-    mvn tomcat6:run
+    mvn tomcat7:run
 
 
 Then open your browser to this address: [http://localhost:8080/microblog/](http://localhost:8080/microblog/)
