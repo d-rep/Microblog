@@ -2,6 +2,6 @@
 <%@ page session="false" %>
 
         <strong>Please correct the following problems and retry your request...</strong>
-        <p class="error">
+        <p class="text-danger">
         <c:out value="${errorMessage}"/>
         </p>

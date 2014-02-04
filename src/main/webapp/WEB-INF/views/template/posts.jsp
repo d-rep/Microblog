@@ -4,17 +4,17 @@
 		<c:choose>
 		<c:when test="${not empty posts && not empty posts.content}">
 		<input type="hidden" id="lastUpdate"/>
-		<table id="posts">
+		<table id="posts" class="table table-striped">
 			<tbody>
 			<c:forEach var="post" items="${posts.content}">
 				<tr>
-					<td class="postCell" title="posted on <spring:eval expression="post.createdDate" />">
+					<td title="posted on <spring:eval expression="post.createdDate" />">
 						<div class="postHeader">
 							<span class="username"><c:out value="${post.blogUser.username}"/>:</span>
 							<span class="age"><c:out value="${post.age}"/></span>
 						</div>
 						<div class="message"><c:out value="${post.message}"/></div>
-						<div class="retrievalDate"><c:out value="${post.retrievalDate.time}"/></div>
+						<div class="hidden"><c:out value="${post.retrievalDate.time}"/></div>
 					</td>
 				</tr>
 			</c:forEach>

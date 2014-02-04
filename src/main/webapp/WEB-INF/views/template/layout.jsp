@@ -1,10 +1,16 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE HTML>
-<html>
+<html lang="en">
 	<tiles:insertAttribute name="header" />
 	<body>
-		<section id="main">
-			<h1><tiles:getAsString name="title"/></h1>
+		<section id="main" class="container">
+			<h1>
+				<tiles:getAsString name="title"/>
+				<sec:authorize access="isAuthenticated()">
+				<small><sec:authentication property="principal.username" />'s Microblog</small>
+				</sec:authorize>
+			</h1>
 			
 <tiles:insertAttribute name="nav" />
 
@@ -12,8 +18,9 @@
 <tiles:insertAttribute name="body" />
 			</section>
 
-		</section>
 <tiles:insertAttribute name="footer" />
+
+		</section>
 		
 
 	</body>

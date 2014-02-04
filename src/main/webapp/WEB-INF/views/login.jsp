@@ -8,34 +8,23 @@
 		</div>
 		</c:if>
 		
-		<form action="j_spring_security_check" method="post">
-			<table>
-				<tr>
-					<td>
-						<label for="username">Username: </label>
-					</td>
-					<td>
-						<input type="text" id="username" name="j_username"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<label for="password">Password: </label>
-					</td>
-					<td>
-						<input type="password" id="password" name="j_password"/>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="submit" value="Sign In">
-					</td>
-				</tr>
-			</table>
+		<form action="j_spring_security_check" method="post" role="form">
+		
+			<div class="form-group">
+				<label for="username">Username: </label>
+				<input type="text" id="username" name="j_username" maxlength="20" class="form-control" />
+			</div>
+			
+			<div class="form-group">
+				<label for="password">Password: </label>
+				<input type="password" id="password" name="j_password" maxlength="80" class="form-control" />
+			</div>
+			
+			<input type="submit" value="Sign In" class="btn btn-default">
 		</form>
 		
 		<c:if test="${empty message && not empty sessionScope['SPRING_SECURITY_LAST_EXCEPTION']}">
-		<div class="error">
+		<div class="text-danger">
 			Your login attempt was not successful, please try again.  
 			<c:out value="${sessionScope['SPRING_SECURITY_LAST_EXCEPTION'].message}"/>
 		</div>

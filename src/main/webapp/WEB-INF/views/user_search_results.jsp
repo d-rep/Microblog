@@ -10,7 +10,7 @@
 		<c:choose>
 		<c:when test="${not empty users}">
 
-		<table id="userSearchResults">
+		<table id="userSearchResults" class="table table-striped">
 			<thead>
 				<tr>
 					<th colspan="2">Username</th>
@@ -20,9 +20,7 @@
 			<c:forEach var="user" items="${users}">
 
 				<tr>
-					<td>
-						<c:out value="${user}"/>
-					</td>
+					<td><c:out value="${user}"/></td>
 					<td>
 						<c:set var="isFollowed">
 							<spring:eval expression="following.contains(user)" />
@@ -33,15 +31,15 @@
 							This is you!
 						</c:when>
 						<c:when test="${isFollowed}">
-					        <form method="POST" action="unfollow">
+					        <form method="POST" action="unfollow" role="form">
 					        	<input type="hidden" name="usernameToUnfollow" value="<c:out value="${user}"/>"/>
-					        	<input type="submit" value="Unfollow"/>
+					        	<input type="submit" value="Unfollow" class="btn btn-default"/>
 					        </form>
 				        </c:when>
 				        <c:otherwise>
-					        <form method="POST" action="follow">
+					        <form method="POST" action="follow" role="form">
 					        	<input type="hidden" name="usernameToFollow" value="<c:out value="${user}"/>"/>
-					        	<input type="submit" value="Follow"/>
+					        	<input type="submit" value="Follow" class="btn btn-default"/>
 					        </form>
 				        </c:otherwise>
 				        </c:choose>

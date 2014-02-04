@@ -1,152 +1,9 @@
-body {
-	background-color: #cccccc;
-	color: #000000;
-	font-family: Tahoma, Arial, Verdana, sans-serif;
-}
-
-.error {
-	color: red;
-}
-
-.tip {
-	color: blue;
-}
-
-.success {
-	color: green;
-	text-align: center;
-	font-weight: bold;
-}
-
-#main {
-	background-color: #ffffff;
-	border: 1px solid black;
-	width: 750px;
-	padding: 15px;
-	-webkit-box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
-	-moz-box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
-	box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
-	margin: 0 auto;
-	min-height: 300px;
-	-moz-border-radius : 5px;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-
-h1 {
-	text-align: center;
-}
-
-nav {
-	width: 150px;
-	float: left;
-	margin-right: 45px;
-	padding-bottom: 15px;
-	background-color: grey;
-	color: white;
-	text-align: center;
-	-moz-border-radius : 5px;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-}
-
-#content {
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* buttons have a drop shadow when you hover over them */
-input[type="submit"]:hover {
-  -webkit-box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
-  -moz-box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
-  box-shadow: 2px 2px 4px rgba(25, 12, 5, 0.5);
-}
-
-footer {
-	font-size: small;
-	text-align: right;
-	color: #000000;
-	margin-left: auto;
-	margin-right: auto;
-	padding-top: 5px;
-	width: 750px;
-}
-
-nav a:link, nav a:visited, nav a:hover, nav a:active {
-	color: white;
-	
-}
-
-a:hover {
-	text-decoration: none;
-}
-
-th {
-	font-size: 1.2em;
-}
-
-#pagingPanel {
-	width: 100%;
-}
-
-#pagingPanel table {
-	font-size: 1.1em;
-	border: 1px solid blue;
-	margin: 25px auto;
-}
-
-#pagingPanel td {
-	padding: 10px 5px 10px 5px; 
-}
-
-#pagingPanel a:link, #pagingPanel a:visited, #pagingPanel a:hover, #pagingPanel a:active {
-	color: blue;
-}
-
 .currentPage {
 	color: black;
 }
 
-#login form table, #register form table, #posts, #userSearchResults, #following {
-	border: 1px solid #cccccc;
-	border-spacing: 0;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-tbody tr:nth-child(odd) {
-	background-color: #cccccc;
-}
-
-tbody tr:nth-child(even), #login form table tr {
-	background-color: #ffffff;
-}
-
-.postCell {
-	max-width: 300px;
-}
-
-#userSearchResults {
-	width: 200px;
-}
-
-#userSearchResults tbody tr {
-	height: 20px;
-	text-align: center;
-}
-
-#posts {
-	width: 100%;
-	margin-top: 15px;	
-}
-
 .postHeader {
 	width: 100%;
-}
-
-.username {
-	color: black;
 }
 
 .age {
@@ -163,12 +20,6 @@ tbody tr:nth-child(even), #login form table tr {
 	margin-left: 20px;
 }
 
-#createMessage {
-	width: 70%;
-	height: 50px;
-}
-
-.retrievalDate {
-	visibility: hidden;
-	position: absolute;
+#pagingPanel {
+	
 }

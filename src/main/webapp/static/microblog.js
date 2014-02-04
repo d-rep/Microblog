@@ -15,6 +15,18 @@ $(document).ready(function() {
 		retrievalDateUpdate();
 		setTimeout(postAutoUpdater, POST_REFRESH_RATE_IN_SECONDS * 1000);
 	}
+	
+	var pathSplit = window.location.pathname.split('/'),
+		path = pathSplit[pathSplit.length - 1],
+		activeLinkMap = {
+			'': '#navCreatePost',
+			'findUser': '#navFindUser',
+			'posts': '#navPosts',
+			'follow': '#navFollow'
+		},
+		activeLink = activeLinkMap[path];
+	
+	$(activeLink).addClass('active');
 });
 
 var retrievalDateUpdate = function() {
