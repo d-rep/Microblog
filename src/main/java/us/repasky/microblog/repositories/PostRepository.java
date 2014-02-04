@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.repositories;
+package us.repasky.microblog.repositories;
 
 import java.util.Date;
 import java.util.List;
@@ -25,7 +25,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.repaskys.microblog.domain.Post;
+import us.repasky.microblog.domain.Post;
 
 /**
  * This class uses <a href="http://www.springsource.org/spring-data/jpa">Spring Data</a> to expose Post entities from JPA.

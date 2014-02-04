@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.controllers;
+package us.repasky.microblog.controllers;
 
 import java.security.Principal;
 import java.util.Arrays;
@@ -36,10 +36,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.repaskys.microblog.domain.BlogUser;
-import com.repaskys.microblog.domain.Post;
-import com.repaskys.microblog.dto.UserPostDto;
-import com.repaskys.microblog.services.UserService;
+import us.repasky.microblog.domain.BlogUser;
+import us.repasky.microblog.domain.Post;
+import us.repasky.microblog.dto.UserPostDto;
+import us.repasky.microblog.services.UserService;
 
 /**
  * These are operations involving users, such as logging in, registering, and

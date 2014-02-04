@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.controllers;
+package us.repasky.microblog.controllers;
 
 import java.security.Principal;
 import java.util.List;
@@ -28,8 +28,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.repaskys.microblog.domain.FollowAction;
-import com.repaskys.microblog.services.UserService;
+import us.repasky.microblog.domain.FollowAction;
+import us.repasky.microblog.services.UserService;
 
 /**
  * These are operations involving following and unfollowing users.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.services;
+package us.repasky.microblog.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,14 +35,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
-import com.repaskys.microblog.domain.BlogUser;
-import com.repaskys.microblog.domain.Follower;
-import com.repaskys.microblog.domain.FollowerKey;
-import com.repaskys.microblog.domain.Post;
-import com.repaskys.microblog.dto.UserPostDto;
-import com.repaskys.microblog.repositories.BlogUserRepository;
-import com.repaskys.microblog.repositories.FollowerRepository;
-import com.repaskys.microblog.repositories.PostRepository;
+import us.repasky.microblog.domain.BlogUser;
+import us.repasky.microblog.domain.Follower;
+import us.repasky.microblog.domain.FollowerKey;
+import us.repasky.microblog.domain.Post;
+import us.repasky.microblog.dto.UserPostDto;
+import us.repasky.microblog.repositories.BlogUserRepository;
+import us.repasky.microblog.repositories.FollowerRepository;
+import us.repasky.microblog.repositories.PostRepository;
 
 /**
  * This implementation uses the UserDetailsManager from Spring Security, as well

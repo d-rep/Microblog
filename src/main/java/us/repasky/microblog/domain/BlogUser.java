@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.domain;
+package us.repasky.microblog.domain;
 
 import java.io.Serializable;
 import java.util.List;

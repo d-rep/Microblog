@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.services;
+package us.repasky.microblog.services;
 
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 
-import com.repaskys.microblog.domain.Post;
-import com.repaskys.microblog.dto.UserPostDto;
+import us.repasky.microblog.domain.Post;
+import us.repasky.microblog.dto.UserPostDto;
 
 /**
  * This is a service for interacting with user data. 

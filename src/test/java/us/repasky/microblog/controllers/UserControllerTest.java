@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.controllers;
+package us.repasky.microblog.controllers;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -34,9 +34,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.validation.BindingResult;
 
-import com.repaskys.microblog.domain.BlogUser;
-import com.repaskys.microblog.domain.Post;
-import com.repaskys.microblog.services.UserService;
+import us.repasky.microblog.domain.BlogUser;
+import us.repasky.microblog.domain.Post;
+import us.repasky.microblog.services.UserService;
 
 /**
  * Unit tests for the UserController.

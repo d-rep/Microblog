@@ -14,36 +14,39 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.domain;
+package us.repasky.microblog.domain;
 
 import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+/**
+ * Relate followers to the followed target user.
+ * 
+ * @author Drew Repasky
+ */
 @Entity
-@Table(name="authorities")
-public class BlogAuthority implements Serializable {
+public class Follower implements Serializable {
 
-	private static final long serialVersionUID = 3156968893620763630L;
-	
+	private static final long serialVersionUID = -2922163470411084743L;
+
 	@Id
-	private AuthorityKey authorityKey;
-
-	public AuthorityKey getAuthorityKey() {
-		return authorityKey;
-	}
-
-	public void setAuthorityKey(AuthorityKey authorityKey) {
-		this.authorityKey = authorityKey;
-	}
+	private FollowerKey followerKey;
 	
+	public FollowerKey getFollowerKey() {
+		return followerKey;
+	}
+
+	public void setFollowerKey(FollowerKey followerKey) {
+		this.followerKey = followerKey;
+	}
+
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);

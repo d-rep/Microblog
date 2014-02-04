@@ -1,4 +1,4 @@
-package com.repaskys.microblog.domain;
+package us.repasky.microblog.domain;
 
 import static org.junit.Assert.*;
 

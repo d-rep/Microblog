@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.repaskys.microblog.dto;
+package us.repasky.microblog.dto;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
-import com.repaskys.microblog.domain.Post;
+import us.repasky.microblog.domain.Post;
 
 /**
  * This is a Data Transfer Object (DTO / Value Object) meant to be a
