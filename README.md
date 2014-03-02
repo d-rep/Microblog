@@ -38,7 +38,7 @@ Then open your browser to this address: [http://localhost:8080/microblog/](http:
 
 Editing
 =======
-This project does not require an IDE, but is setup to be edited using an [Eclipse]-based editor like [SpringSource Tool Suite].  You should also install the m2eclipse plugin from Eclipse Marketplace.
+This project does not require an IDE, but is setup to be edited using an [Eclipse]-based editor like [Spring Tool Suite].  You should also install the m2eclipse plugin from Eclipse Marketplace.
 
 1. Create a new workspace
 2. click File -> Import -> General -> Existing Projects into Workspace
@@ -54,5 +54,5 @@ This project does not require an IDE, but is setup to be edited using an [Eclips
 [Spring Security]: http://docs.spring.io/spring-security/site/docs/3.2.0.RELEASE/reference/htmlsingle/
 [Apache Tiles]: http://tiles.apache.org/2.2/framework/tutorial/index.html
 [Eclipse]: http://www.eclipse.org/downloads/
-[SpringSource Tool Suite]: http://spring.io/tools/sts
+[Spring Tool Suite]: http://spring.io/tools/sts
 
