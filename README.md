@@ -54,5 +54,5 @@ This project does not require an IDE, but is setup to be edited using an [Eclips
 [Spring Security]: http://docs.spring.io/spring-security/site/docs/3.2.0.RELEASE/reference/htmlsingle/
 [Apache Tiles]: http://tiles.apache.org/2.2/framework/tutorial/index.html
 [Eclipse]: http://www.eclipse.org/downloads/
-[SpringSource Tool Suite]: http://www.springsource.com/downloads/sts
+[SpringSource Tool Suite]: http://spring.io/tools/sts
 
